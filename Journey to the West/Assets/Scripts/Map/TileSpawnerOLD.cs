@@ -1,7 +1,7 @@
 using Unity.Mathematics;
 using UnityEngine;
 
-public class TileSpawner : MonoBehaviour
+public class TileSpawnerOLD : MonoBehaviour
 {
     private const float HEX_VERTICAL_OFFSET_MULTIPLIER = .75f;
     [SerializeField] int mapHight;
