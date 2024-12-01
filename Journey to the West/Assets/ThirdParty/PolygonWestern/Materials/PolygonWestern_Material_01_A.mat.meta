@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 66a8a6e30880caa48908020cf5388217
+timeCreated: 1518378830
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 0
+  packageName: POLYGON_Western_Unity_2020_3_v1_08
+  packageVersion: 
+  assetPath: Assets/ThirdParty/PolygonWestern/Materials/PolygonWestern_Material_01_A.mat
+  uploadId: 0
