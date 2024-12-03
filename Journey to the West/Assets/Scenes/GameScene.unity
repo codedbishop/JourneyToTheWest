@@ -339,6 +339,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Unit 1
+--- !u!114 &376926517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376926511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eafaea6f2e45c0a44967c08c6aefe3e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stoppingDistance: 0.2
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -492,6 +505,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mousPosition: {fileID: 305001206}
   unit: {fileID: 376926511}
+  selectedUnit: {fileID: 0}
 --- !u!114 &565086061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -862,6 +876,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1800371080893130, guid: e169e4d9dbd157b498e582065a5f9302, type: 3}
       insertIndex: -1
       addedObject: {fileID: 376926514}
+    - targetCorrespondingSourceObject: {fileID: 1800371080893130, guid: e169e4d9dbd157b498e582065a5f9302, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 376926517}
   m_SourcePrefab: {fileID: 100100000, guid: e169e4d9dbd157b498e582065a5f9302, type: 3}
 --- !u!1 &1715185520
 GameObject:
@@ -894,7 +911,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapHight: 10
   mapWidth: 10
-  cellSize: 4
+  cellSize: 6
   hexTilePrefab: {fileID: 7698267598284140612, guid: d4d898492258261459faf6239f0fcca2, type: 3}
 --- !u!4 &1715185522
 Transform:

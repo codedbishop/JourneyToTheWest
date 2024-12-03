@@ -10,7 +10,6 @@ public class TileSpawnerAuthoring : MonoBehaviour
 
     public class Baker : Baker<TileSpawnerAuthoring>
     {
-
         public override void Bake(TileSpawnerAuthoring authoring)
         {
             Entity entity = GetEntity(TransformUsageFlags.Dynamic);

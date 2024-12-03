@@ -1,9 +1,9 @@
 using Unity.Mathematics;
 using UnityEngine;
 
-public class TileSpawnerOLD : MonoBehaviour
+public class LevelSystem : MonoBehaviour
 {
-    public static TileSpawnerOLD Instance { get; private set; }
+    public static LevelSystem Instance { get; private set; }
 
     private const float HEX_VERTICAL_OFFSET_MULTIPLIER = .75f;
     [SerializeField] int mapHight;
@@ -59,8 +59,12 @@ public class TileSpawnerOLD : MonoBehaviour
 
     public HexTile GetHexTileFromWorldPosition(Vector3 worldPosition) => hexGridSystem.GetHexTileFromWorldPosition(worldPosition);
 
-    //public void DebugHex()
-    //{
-    //    Debug.Log()
-    //}
+    public void SetUnitOnTile(Unit unit, HexTile oldTile, HexTile newTile)
+    {
+        if(oldTile != null)
+        {
+            oldTile.SetUnit(null);
+        }
+        newTile.SetUnit(unit);
+    }
 }

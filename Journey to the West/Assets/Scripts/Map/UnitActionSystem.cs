@@ -18,7 +18,7 @@ public class UnitActionSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        mousPosition.transform.position = TileSpawnerOLD.Instance.GetHexPositionFromWorldPosition(MouseWorld.GetPosition());
+        mousPosition.transform.position = LevelSystem.Instance.GetHexPositionFromWorldPosition(MouseWorld.GetPosition());
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -28,20 +28,19 @@ public class UnitActionSystem : MonoBehaviour
         if (Input.GetMouseButton(1))
         {
             GridPosition gridPosition = new GridPosition(0, 0);
-            unit.GetComponent<Unit>().MoveUnit(TileSpawnerOLD.Instance.GetHexTile(gridPosition));
 
-            TileSpawnerOLD.Instance.GetHexTile(gridPosition).SetUnit(unit.GetComponent<Unit>());
+            LevelSystem.Instance.GetHexTile(gridPosition).SetUnit(unit.GetComponent<Unit>());
 
         }
     }
 
     private void HandelSelectedAction()
     {
-        GridPosition mouseGridPosition = TileSpawnerOLD.Instance.GetGridPosition(MouseWorld.GetPosition());
-        HexTile hexTile = TileSpawnerOLD.Instance.GetHexTile(mouseGridPosition);
+        GridPosition mouseGridPosition = LevelSystem.Instance.GetGridPosition(MouseWorld.GetPosition());
+        HexTile hexTile = LevelSystem.Instance.GetHexTile(mouseGridPosition);
         if (selectedUnit != null)
         {
-            selectedUnit.GetComponent<Unit>().MoveUnit(hexTile);
+            selectedUnit.GetComponent<MoveAction>().SetTarget(hexTile);
             //hexTile.SetUnit(selectedUnit.GetComponent<Unit>());
             //Debug.Log(hexTile.GetUnit().GetName());
             selectedUnit = null;
@@ -59,4 +58,5 @@ public class UnitActionSystem : MonoBehaviour
         Debug.Log(hexTile.GetHexTileObject().name);
     }
 
+   
 }
