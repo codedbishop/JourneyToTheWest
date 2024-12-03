@@ -53,7 +53,11 @@ public class TileSpawnerOLD : MonoBehaviour
 
     public Vector3 GetHexPositionFromWorldPosition(Vector3 worldPosition) => hexGridSystem.GetHexPositionFromWorldPosition(worldPosition);
 
+    public Vector3 GetHexWorldPosition(HexTile hexTile) => hexGridSystem.GetHexWorldPosition(hexTile);
+
     public HexTile GetHexTile(GridPosition gridPosition) => hexGridSystem.GetHexTile(gridPosition);
+
+    public HexTile GetHexTileFromWorldPosition(Vector3 worldPosition) => hexGridSystem.GetHexTileFromWorldPosition(worldPosition);
 
     //public void DebugHex()
     //{

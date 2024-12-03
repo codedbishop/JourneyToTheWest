@@ -6,10 +6,13 @@ public class UnitActionSystem : MonoBehaviour
 {
     [SerializeField] GameObject mousPosition;
 
+    [SerializeField] GameObject unit;
+
+    [SerializeField] GameObject selectedUnit;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -21,13 +24,37 @@ public class UnitActionSystem : MonoBehaviour
         {
             HandelSelectedAction();
         }
+
+        if (Input.GetMouseButton(1))
+        {
+            GridPosition gridPosition = new GridPosition(0, 0);
+            unit.GetComponent<Unit>().MoveUnit(TileSpawnerOLD.Instance.GetHexTile(gridPosition));
+
+            TileSpawnerOLD.Instance.GetHexTile(gridPosition).SetUnit(unit.GetComponent<Unit>());
+
+        }
     }
 
     private void HandelSelectedAction()
     {
         GridPosition mouseGridPosition = TileSpawnerOLD.Instance.GetGridPosition(MouseWorld.GetPosition());
         HexTile hexTile = TileSpawnerOLD.Instance.GetHexTile(mouseGridPosition);
+        if (selectedUnit != null)
+        {
+            selectedUnit.GetComponent<Unit>().MoveUnit(hexTile);
+            //hexTile.SetUnit(selectedUnit.GetComponent<Unit>());
+            //Debug.Log(hexTile.GetUnit().GetName());
+            selectedUnit = null;
+        }
+        else
+        {
 
+            if (hexTile.GetUnit() != null)
+            {
+                selectedUnit = hexTile.GetUnit().gameObject;
+                Debug.Log(hexTile.GetUnit().GetName());
+            }
+        }
 
         Debug.Log(hexTile.GetHexTileObject().name);
     }

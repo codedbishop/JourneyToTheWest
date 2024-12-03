@@ -41,6 +41,16 @@ public class HexGridSystem
         return GetWorldPosition(GitGridPosition(worldPosition));
     }
 
+    public HexTile GetHexTileFromWorldPosition(Vector3 worldPosition)
+    {
+        return GetHexTile(GitGridPosition(worldPosition));
+    }
+
+    public Vector3 GetHexWorldPosition(HexTile hexTile)
+    {
+        return GetWorldPosition(hexTile.GetGridPosition());
+    }
+
     public Vector3 GetWorldPosition(GridPosition gridPosition)
     {
         return

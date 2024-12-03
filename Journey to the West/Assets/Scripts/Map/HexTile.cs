@@ -7,6 +7,8 @@ public class HexTile
 
     private GameObject hexTileObject;
 
+    private Unit unit;
+
     public HexTile(HexGridSystem gridSystem, GridPosition gridPosition)
     {
         this.gridSystem = gridSystem;
@@ -22,5 +24,20 @@ public class HexTile
     public GameObject GetHexTileObject()
     {
         return this.hexTileObject;
+    }
+
+    public void SetUnit(Unit unit)
+    {
+        this.unit = unit;
+    }
+
+    public Unit GetUnit()
+    {
+        return unit;
+    }
+
+    public GridPosition GetGridPosition()
+    {
+        return gridPosition;
     }
 }
