@@ -63,7 +63,7 @@ public class LevelSystem : MonoBehaviour
     {
         if(oldTile != null)
         {
-            oldTile.SetUnit(null);
+            oldTile.RemoveUnit(unit);
         }
         newTile.SetUnit(unit);
     }
