@@ -14,6 +14,7 @@ public class LevelSystem : MonoBehaviour
 
     HexGridSystem hexGridSystem;
 
+
     private void Awake()
     {
         Instance = this;    
@@ -33,15 +34,16 @@ public class LevelSystem : MonoBehaviour
             for(int z = 0; z < mapHight; z++)
             {
                 HexTile hexTile = hexGridSystem.GetHexTile(new GridPosition(x, z));//gets the hexTileObject to attach visuals to
-                GameObject hexTileVisual = Instantiate(hexTilePrefab, GetTileLocation(new int2(x, z)), Quaternion.identity, this.transform).gameObject;//creates visual for the hex
+                GameObject hexTileVisual = Instantiate(hexTilePrefab, GetTileLocation(new int2(x, z), cellSize), Quaternion.identity, this.transform).gameObject;//creates visual for the hex
                 hexTileVisual.transform.name = ("Tile " + x + ", " + z);
                 hexTile.AttachGameObject(hexTileVisual);
                 
             }
         }
     }
+    
 
-    public Vector3 GetTileLocation(int2 tileXY)
+    public Vector3 GetTileLocation(int2 tileXY, float cellSize)
     {
         return
             new Vector3(tileXY.x, 0, 0) * cellSize +

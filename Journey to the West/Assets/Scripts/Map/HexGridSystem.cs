@@ -9,17 +9,17 @@ public class HexGridSystem
 
     int mapHight;
     int mapWidth;
-    int cellSize;
+    float cellSize;
 
     private HexTile[,] hexTileArray;
 
-    public HexGridSystem(int mapHight, int mapWidth, int cellSize)
+    public HexGridSystem(int mapHight, int mapWidth, float cellSize)
     {
         this.mapHight = mapHight;
         this.mapWidth = mapWidth;
         this.cellSize = cellSize;
 
-        hexTileArray = new HexTile[mapHight,mapWidth];
+        hexTileArray = new HexTile[mapWidth, mapHight];
 
         for (int x = 0; x < mapWidth; x++)
         {
