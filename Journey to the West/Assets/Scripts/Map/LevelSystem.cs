@@ -1,6 +1,8 @@
 using Unity.Mathematics;
 using UnityEngine;
 
+
+
 public class LevelSystem : MonoBehaviour
 {
     public static LevelSystem Instance { get; private set; }
@@ -14,6 +16,8 @@ public class LevelSystem : MonoBehaviour
 
     HexGridSystem hexGridSystem;
 
+    [SerializeField] Transform treePrefab;
+
 
     private void Awake()
     {
@@ -24,6 +28,8 @@ public class LevelSystem : MonoBehaviour
     {
         hexGridSystem = new HexGridSystem(mapHight, mapWidth, cellSize);//creates the object that holds the hex data for the map
         GenerateHexTiles();
+        SpawnTrees();
+
     }
 
     public void GenerateHexTiles()
@@ -40,6 +46,20 @@ public class LevelSystem : MonoBehaviour
                 
             }
         }
+    }
+
+    //this is just a temp tree spawner tell a better one is made 
+    public void SpawnTrees()
+    {
+       
+        int totalNumber = 100;
+        for (int x = 0; x < totalNumber; x++)
+        {
+            float xPosition = UnityEngine.Random.Range(0,((mapWidth-2) * 6));
+            float zPosition = UnityEngine.Random.Range(0,(mapHight * 3.5f));
+            Instantiate(treePrefab, new Vector3(xPosition, 0, zPosition), Quaternion.identity);
+        }
+
     }
     
 

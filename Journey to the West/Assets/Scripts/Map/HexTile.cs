@@ -2,6 +2,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Splines;
 
 public class HexTile
 {
@@ -12,14 +13,37 @@ public class HexTile
 
     private List<Unit> units;
 
-    
+    private List<TileMovePoint> tileMovePoints;
+
+    public void Start()
+    {
+        
+       
+    }
 
     public HexTile(HexGridSystem gridSystem, GridPosition gridPosition)
     {
         this.gridSystem = gridSystem;
         this.gridPosition = gridPosition;
         units = new List<Unit>();
+        CreateListOfTileMovePoints();
 
+    }
+
+    private void CreateListOfTileMovePoints()
+    {
+        tileMovePoints = new List<TileMovePoint>
+        {
+            new TileMovePoint(new Vector2(0,0)),
+            new TileMovePoint(new Vector2(-2,0)),
+            new TileMovePoint(new Vector2(2,0)),
+            new TileMovePoint(new Vector2(-1,-1)),
+            new TileMovePoint(new Vector2(1,-1)),
+            new TileMovePoint(new Vector2(0,-2)),
+            new TileMovePoint(new Vector2(-1,1)),
+            new TileMovePoint(new Vector2(1,1)),
+            new TileMovePoint(new Vector2(0,2)),
+        };
     }
 
     //attaches the visualGameObject to this object
@@ -54,5 +78,70 @@ public class HexTile
     public GridPosition GetGridPosition()
     {
         return gridPosition;
+    }
+
+    //this will need to get all the free pints and then select one of those ones 
+    public TileMovePoint GetRandomAvailablePosition()
+    {
+        List<TileMovePoint> freeTileMovePoints = new List<TileMovePoint>();
+        foreach (TileMovePoint tileMovePoint in tileMovePoints)
+        {
+            if (tileMovePoint.GetPointFree())
+            {
+                freeTileMovePoints.Add(tileMovePoint);
+            }
+        }
+
+        Debug.Log(freeTileMovePoints.Count);
+
+        if (freeTileMovePoints.Count > 0) 
+        {
+            int randomIndex = Random.Range(0, freeTileMovePoints.Count);
+            return freeTileMovePoints[randomIndex];
+        }
+        else
+        {
+            return tileMovePoints[0];
+        }
+    }
+
+    public void MoveOffTilePosition(TileMovePoint tileMovePoint)
+    {
+       for (int i = 0; i < tileMovePoints.Count; i++)
+        {
+            if (tileMovePoints[i] == tileMovePoint)
+            {
+                tileMovePoints[i].SetPointFree(true);
+                Debug.Log("Move Point Was set to free");
+                return;
+            }
+        }
+    }
+}
+
+public class TileMovePoint
+{
+    Vector2 pointPostition;
+    bool pointFree;
+
+    public TileMovePoint(Vector2 position)
+    {
+        pointPostition = position;
+        pointFree = true;
+    }
+
+    public bool GetPointFree()
+    {
+        return pointFree;
+    }
+
+    public void SetPointFree(bool isFree)
+    {
+        pointFree = isFree;
+    }
+
+    public Vector2 GetPointPosition()
+    {
+        return pointPostition; 
     }
 }

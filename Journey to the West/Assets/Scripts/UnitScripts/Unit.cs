@@ -6,6 +6,8 @@ public class Unit : MonoBehaviour
     [SerializeField] string name;
     [SerializeField] HexTile hexTileOn;
 
+    [SerializeField] TileMovePoint tileMovePoint;
+
     private void Update()
     {
         HexTile newHexTile = LevelSystem.Instance.GetHexTileFromWorldPosition(transform.position);
@@ -21,6 +23,21 @@ public class Unit : MonoBehaviour
     public string GetName()
     {
         return name;
+    }
+
+    public void SetTileMovePoint(TileMovePoint tileMovePoint)
+    {
+        this.tileMovePoint = tileMovePoint;
+    }
+
+    public TileMovePoint GetTileMovePoint()
+    {
+        return tileMovePoint;
+    }
+
+    public HexTile GetHexTile()
+    {
+        return hexTileOn;
     }
 
 }
