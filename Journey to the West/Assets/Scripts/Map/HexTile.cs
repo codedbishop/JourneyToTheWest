@@ -92,8 +92,6 @@ public class HexTile
             }
         }
 
-        Debug.Log(freeTileMovePoints.Count);
-
         if (freeTileMovePoints.Count > 0) 
         {
             int randomIndex = Random.Range(0, freeTileMovePoints.Count);

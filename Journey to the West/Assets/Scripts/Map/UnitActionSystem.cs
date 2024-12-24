@@ -79,6 +79,7 @@ public class UnitActionSystem : MonoBehaviour
             SetUnitDestination(moveLocation);
             tileMovePoint.SetPointFree(false);
             //selectedUnit.GetComponent<MoveAction>().SetTarget(selectedHexTile);
+            UnitsOnMap.Instance.DeselectedAllUnitProfiles();
             selectedUnit = null;
         }
         else
@@ -93,6 +94,7 @@ public class UnitActionSystem : MonoBehaviour
 
         proceduralGraphMover.target = selectedUnit.transform; // Update the graph center (optional, depending on your ProceduralGraphMover configuration)
         UpdateGridCenter(selectedUnit.transform.position);
+        UnitsOnMap.Instance.SetActiveUnit(selectedUnit);
     }
 
     public HexTile GetSelectedHexTile()

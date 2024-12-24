@@ -16,11 +16,15 @@ public class UnitOnTilePanel : MonoBehaviour
 
     }
 
-
-
     public void SetUpButtons(List<Unit> units)
     {
         RemoveButtons();
+
+        if (units.Count == 1)
+        {
+            UnitActionSystem.Instance.SetSelectedUnit(units[0]);
+            return;
+        }
         if (units.Count > 0)
         {
             foreach (Unit unit in units)
