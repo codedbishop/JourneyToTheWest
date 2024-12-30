@@ -1,4 +1,5 @@
 using System;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class GridPosition : IEquatable<GridPosition>
@@ -12,6 +13,12 @@ public class GridPosition : IEquatable<GridPosition>
         this.z = z;
     }
 
+    public int2 GetPosition()
+    {
+        int2 position = new int2(x,z);
+        return position;
+    }
+
 
 
     public bool Equals(object obj)
@@ -23,7 +30,13 @@ public class GridPosition : IEquatable<GridPosition>
 
     public bool Equals(GridPosition other)
     {
-        return this == other;
+        
+        if (other == null)
+        {
+            return false;
+        }
+        return x == other.x && z == other.z;
+        
     }
 
     public static GridPosition operator +(GridPosition a, GridPosition b)

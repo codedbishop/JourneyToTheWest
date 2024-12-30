@@ -77,9 +77,13 @@ public class LevelSystem : MonoBehaviour
 
     public Vector3 GetHexWorldPosition(HexTile hexTile) => hexGridSystem.GetHexWorldPosition(hexTile);
 
+    public Vector3 GetHexWorldPositionWithGridPosition(GridPosition gridPosition) => hexGridSystem.GetHexWorldPositionWithGridPosition(gridPosition);
+
     public HexTile GetHexTile(GridPosition gridPosition) => hexGridSystem.GetHexTile(gridPosition);
 
     public HexTile GetHexTileFromWorldPosition(Vector3 worldPosition) => hexGridSystem.GetHexTileFromWorldPosition(worldPosition);
+
+    public bool IsValidGridPosition(GridPosition gridPosition) => hexGridSystem.IsValidGridPosition(gridPosition);
 
     public void SetUnitOnTile(Unit unit, HexTile oldTile, HexTile newTile)
     {
@@ -89,4 +93,6 @@ public class LevelSystem : MonoBehaviour
         }
         newTile.SetUnit(unit);
     }
+
+    //public void FindNumberOfMoves(GridPosition startingHex, int maxMoves) => hexGridSystem.FindNumberOfMoves(startingHex, maxMoves);
 }

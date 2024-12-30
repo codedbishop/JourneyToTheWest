@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class HexGridSystem
@@ -51,6 +52,11 @@ public class HexGridSystem
         return GetWorldPosition(hexTile.GetGridPosition());
     }
 
+    public Vector3 GetHexWorldPositionWithGridPosition(GridPosition gridPosition)
+    {
+        return GetHexWorldPosition(GetHexTile(gridPosition));
+    }
+
     public Vector3 GetWorldPosition(GridPosition gridPosition)
     {
         return
@@ -93,6 +99,10 @@ public class HexGridSystem
         return closestGridPosition;
     }
 
-
-
+    public bool IsValidGridPosition(GridPosition gridPosition)
+    {
+        return gridPosition.x >= 0 && gridPosition.z >= 0 && gridPosition.x < mapWidth && gridPosition.z < mapHight;
+    }
 }
+
+

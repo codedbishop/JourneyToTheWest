@@ -81,6 +81,7 @@ public class UnitActionSystem : MonoBehaviour
             //selectedUnit.GetComponent<MoveAction>().SetTarget(selectedHexTile);
             UnitsOnMap.Instance.DeselectedAllUnitProfiles();
             selectedUnit = null;
+            MoveableLocations.Instance.ClearMoveableHexTiles();
         }
         else
         {
@@ -91,6 +92,9 @@ public class UnitActionSystem : MonoBehaviour
     public void SetSelectedUnit(Unit unit)
     {
         selectedUnit = unit.gameObject;
+
+        //finds the hexis that the unit can move to
+        MoveableLocations.Instance.FindNumberOfMoves(unit.GetHexTile().GetGridPosition(), 3);
 
         proceduralGraphMover.target = selectedUnit.transform; // Update the graph center (optional, depending on your ProceduralGraphMover configuration)
         UpdateGridCenter(selectedUnit.transform.position);
