@@ -119,6 +119,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &3585930 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 504477701654176218, guid: 33c910519c3ce034a94ae22845bc270f, type: 3}
+  m_PrefabInstance: {fileID: 6060968305037467787}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &89082441
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -252,6 +263,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 305001207}
+  - component: {fileID: 305001208}
   m_Layer: 2
   m_Name: HexHilight
   m_TagString: Untagged
@@ -275,6 +287,19 @@ Transform:
   - {fileID: 961731894}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &305001208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 305001206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32c9c54749ced2d4c93c7e85b23a2724, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnsNeeded: {fileID: 3585930}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -2474,7 +2499,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 694852238222260632, guid: 33c910519c3ce034a94ae22845bc270f, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

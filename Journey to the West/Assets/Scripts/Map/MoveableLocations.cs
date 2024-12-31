@@ -7,6 +7,7 @@ public class MoveableLocations : MonoBehaviour
 
     [SerializeField] Transform moveableHexPrefab;
     public List<GameObject> moveableHexVisuals = new List<GameObject>();
+    List<MoveAbleHexTileLocation> movableHexs = new List<MoveAbleHexTileLocation>();
 
     public void Awake()
     {
@@ -32,18 +33,32 @@ public class MoveableLocations : MonoBehaviour
         }
     }
 
-    public void ClearMoveableHexTiles()
+    public void ClearMoveableHexTileVisuals()
     {
         foreach(GameObject moveableHexVisual in moveableHexVisuals)
         {
             moveableHexVisual.SetActive(false);
         }
+        ClearTileMoveCosts();
     }
 
-    public void FindNumberOfMoves(GridPosition startingHex, int maxMoves)
+    public void ClearTileMoveCosts()
     {
-        List<MoveAbleHexTileLocation> movableHexs = new List<MoveAbleHexTileLocation>();
+        if(movableHexs.Count > 0)
+        {
+            foreach (MoveAbleHexTileLocation moveableHex in movableHexs)
+            {
+                LevelSystem.Instance.GetHexTile(moveableHex.GetGridPosition()).SetCostToMoveTo(0);
+            }
+        }
+        movableHexs.Clear();
+    }
 
+    public List<MoveAbleHexTileLocation> FindNumberOfMoves(GridPosition startingHex, int maxMoves)
+    {
+
+        ClearMoveableHexTileVisuals();
+        movableHexs.Add(new MoveAbleHexTileLocation(startingHex, 0));
         List<GridPosition> checkNaghborTiles = GetHexNahbors(startingHex);
 
         List<GridPosition> checkNextNaghbors = new List<GridPosition>();
@@ -105,7 +120,7 @@ public class MoveableLocations : MonoBehaviour
                             }
                             if (!matchFoundOnMovable)
                             {
-                                movableHexs.Add(new MoveAbleHexTileLocation(check, 1));
+                                movableHexs.Add(new MoveAbleHexTileLocation(check, i));
                                 checkNextNaghbors.Add(check);
                             }
                         }
@@ -117,16 +132,14 @@ public class MoveableLocations : MonoBehaviour
             checkNextNaghbors.Clear();
         }
 
+        foreach(MoveAbleHexTileLocation gridPosition in movableHexs)
+        {
+            LevelSystem.Instance.GetHexTile(gridPosition.GetGridPosition()).SetCostToMoveTo(gridPosition.GetMovesNeeded());
+        }
 
         DrawMoveableHexis(movableHexs);
-
-        //Debug.Log(movableHexs.Count);
-
-        //foreach (MoveAbleHexTileLocation movable in movableHexs)
-        //{
-        //    Debug.Log(movable.GetGridPosition().GetPosition());
-        //}
-
+        return movableHexs;
+       
     }
 
     public List<GridPosition> GetHexNahbors(GridPosition startingHex)
@@ -169,5 +182,10 @@ public class MoveAbleHexTileLocation
     public GridPosition GetGridPosition()
     {
         return hexPosition;
+    }
+
+    public int GetMovesNeeded()
+    {
+        return movesNeeded;
     }
 }

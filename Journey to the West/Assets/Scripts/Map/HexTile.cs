@@ -15,6 +15,8 @@ public class HexTile
 
     private List<TileMovePoint> tileMovePoints;
 
+    private int selectidUnitCostToMove;
+
     public void Start()
     {
         
@@ -115,6 +117,16 @@ public class HexTile
             }
         }
     }
+
+    public void SetCostToMoveTo(int unitCost)
+    {
+        selectidUnitCostToMove = unitCost;
+    }
+
+    public int GetCostToMoveToTile()
+    {
+        return selectidUnitCostToMove;
+    }
 }
 
 public class TileMovePoint
@@ -142,4 +154,6 @@ public class TileMovePoint
     {
         return pointPostition; 
     }
+
+   
 }

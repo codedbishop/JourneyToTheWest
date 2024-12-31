@@ -39,6 +39,18 @@ public class UnitActionSystem : MonoBehaviour
             Vector3 actualMoucePosition = moucePosition.Value;
             mousPosition.transform.position = LevelSystem.Instance.GetHexPositionFromWorldPosition(actualMoucePosition);
 
+            HexTile huveringHexTile = LevelSystem.Instance.GetHexTileFromWorldPosition(actualMoucePosition);
+            if(huveringHexTile.GetCostToMoveToTile() > 0)
+            {
+                mousPosition.GetComponent<MoveStatUI>().SetTurnsNeeded(huveringHexTile.GetCostToMoveToTile());
+                Debug.Log("Cost to move to tile is " + huveringHexTile.GetCostToMoveToTile());
+            }
+            else
+            {
+                mousPosition.GetComponent<MoveStatUI>().SetTurnNeedsToInactive();
+            }
+
+
             if (Input.GetMouseButtonDown(0))
             {
                 HandelSelectedAction(actualMoucePosition);
@@ -81,7 +93,7 @@ public class UnitActionSystem : MonoBehaviour
             //selectedUnit.GetComponent<MoveAction>().SetTarget(selectedHexTile);
             UnitsOnMap.Instance.DeselectedAllUnitProfiles();
             selectedUnit = null;
-            MoveableLocations.Instance.ClearMoveableHexTiles();
+            MoveableLocations.Instance.ClearMoveableHexTileVisuals();
         }
         else
         {
@@ -94,7 +106,7 @@ public class UnitActionSystem : MonoBehaviour
         selectedUnit = unit.gameObject;
 
         //finds the hexis that the unit can move to
-        MoveableLocations.Instance.FindNumberOfMoves(unit.GetHexTile().GetGridPosition(), 3);
+        List<MoveAbleHexTileLocation> unitMoveableLocations = MoveableLocations.Instance.FindNumberOfMoves(unit.GetHexTile().GetGridPosition(), 3);
 
         proceduralGraphMover.target = selectedUnit.transform; // Update the graph center (optional, depending on your ProceduralGraphMover configuration)
         UpdateGridCenter(selectedUnit.transform.position);
