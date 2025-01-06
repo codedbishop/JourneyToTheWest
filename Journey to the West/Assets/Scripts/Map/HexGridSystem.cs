@@ -34,7 +34,16 @@ public class HexGridSystem
 
     public HexTile GetHexTile(GridPosition gridPosition)
     {
-        return hexTileArray[gridPosition.x, gridPosition.z];
+        if(gridPosition.x >=0 && gridPosition.x <= mapWidth)
+        {
+            if (gridPosition.z >= 0 && gridPosition.z <= mapHight)
+            {
+                return hexTileArray[gridPosition.x, gridPosition.z];
+            }
+        }
+
+        return null;
+        
     }
 
     public Vector3 GetHexPositionFromWorldPosition(Vector3 worldPosition)
@@ -89,6 +98,7 @@ public class HexGridSystem
         GridPosition closestGridPosition = roughXZ;
         foreach (GridPosition neightbourGridPosition in neightbourGridPositionList)
         {
+           
             if (Vector3.Distance(worldPosition, GetWorldPosition(neightbourGridPosition)) < Vector3.Distance(worldPosition, GetWorldPosition(closestGridPosition)))
             {
                 //closer then the closest 

@@ -7,7 +7,11 @@ public class UnitProfile : MonoBehaviour
 {
     [SerializeField] private Button selectButton;
     [SerializeField] private TMP_Text unitNameText;
+    [SerializeField] private TMP_Text unitEnergyText;
     [SerializeField] Transform selectedUnit;
+    [SerializeField] Transform OutOfMovesBorder;
+    [SerializeField] Transform HasMovesBorder;
+
 
     Unit unitOnThisButton;
 
@@ -16,6 +20,8 @@ public class UnitProfile : MonoBehaviour
     {
         unitOnThisButton = unit;
         unitNameText.text = unit.GetName();
+        unitEnergyText.text = unit.GetEnergyAmount().ToString();
+        SetHasEnergyBorder();
     }
 
     public void SelectThisUnit()
@@ -27,10 +33,35 @@ public class UnitProfile : MonoBehaviour
     {
         UnitsOnMap.Instance.DeselectedAllUnitProfiles();
         selectedUnit.gameObject.SetActive(true);
+        HasMovesBorder.gameObject.SetActive(false);
+        OutOfMovesBorder.gameObject.SetActive(false);
     }
 
     public void DeselectedProfile()
     {
-        selectedUnit.gameObject.SetActive(false);
+        //selectedUnit.gameObject.SetActive(false);
+        SetHasEnergyBorder();
+    }
+
+    public void UpdateEnergy()
+    {
+        unitEnergyText.text = unitOnThisButton.GetEnergyAmount().ToString();
+
+    }
+
+    public void SetHasEnergyBorder()
+    {
+        if (unitOnThisButton.GetComponent<Unit>().GetEnergyAmount() > 0)
+        {
+            HasMovesBorder.gameObject.SetActive(true);
+            OutOfMovesBorder.gameObject.SetActive(false);
+            selectedUnit.gameObject.SetActive(false);
+        }
+        else
+        {
+            HasMovesBorder.gameObject.SetActive(false);
+            OutOfMovesBorder.gameObject.SetActive(true);
+            selectedUnit.gameObject.SetActive(false);
+        }
     }
 }

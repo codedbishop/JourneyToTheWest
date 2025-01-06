@@ -20,11 +20,16 @@ public class UnitsOnMap : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        CreateUnitProfiles();
+    }
+
+    public void CreateUnitProfiles()
+    {
         foreach (Unit unitOnMap in unitsOnMap)
         {
             //Transform unit = 
-                //.GetComponent<UnitProfile>().SetUpUnit(unitOnMap);
-                UnitProfile profile = Instantiate(unitIconPrefab, UnitsProfileHolder).GetComponent<UnitProfile>();
+            //.GetComponent<UnitProfile>().SetUpUnit(unitOnMap);
+            UnitProfile profile = Instantiate(unitIconPrefab, UnitsProfileHolder).GetComponent<UnitProfile>();
             profile.SetUpUnit(unitOnMap);
             unitsProfiles.Add(profile);
         }
@@ -35,6 +40,14 @@ public class UnitsOnMap : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void UpdateUnitProfileEnergy()
+    {
+        //foreach (UnitProfile profile in unitsProfiles)
+        //{
+        //    profile.UpdateEnergy();
+        //}
     }
 
     public void SetActiveUnit(GameObject selectedUnit)
@@ -57,5 +70,36 @@ public class UnitsOnMap : MonoBehaviour
         {
             profile.DeselectedProfile();
         }
+    }
+
+    public void ReorderUnitList()
+    {
+        Debug.Log("Reording");
+        List<Unit> orderUnitList = new List<Unit>();
+        int highistEnergy = 0;
+        int unitHighistEnergyIndex = 0;
+        while (unitsOnMap.Count > 0)
+        {
+            highistEnergy = unitsOnMap[0].GetEnergyAmount();
+            unitHighistEnergyIndex = 0;
+            for (int i = 1; i < unitsOnMap.Count; i++)
+            {
+                if (unitsOnMap[i].GetEnergyAmount() > highistEnergy)
+                {
+                    highistEnergy = unitsOnMap[i].GetEnergyAmount();
+                    unitHighistEnergyIndex = i;
+                }
+            }
+            orderUnitList.Add(unitsOnMap[unitHighistEnergyIndex]);
+            unitsOnMap.Remove(unitsOnMap[unitHighistEnergyIndex]);
+        }
+        
+        foreach (UnitProfile profile in unitsProfiles)
+        {
+            Destroy(profile.gameObject);
+        }
+        unitsProfiles.Clear();
+        unitsOnMap.AddRange(orderUnitList);
+        CreateUnitProfiles();
     }
 }

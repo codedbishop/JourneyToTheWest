@@ -34,16 +34,22 @@ public class UnitActionSystem : MonoBehaviour
     {
 
         Vector3? moucePosition = MouseWorld.GetPosition();
-        if (moucePosition.HasValue)
+        if (moucePosition != null)
         {
             Vector3 actualMoucePosition = moucePosition.Value;
             mousPosition.transform.position = LevelSystem.Instance.GetHexPositionFromWorldPosition(actualMoucePosition);
 
+
             HexTile huveringHexTile = LevelSystem.Instance.GetHexTileFromWorldPosition(actualMoucePosition);
-            if(huveringHexTile.GetCostToMoveToTile() > 0)
+
+            if(huveringHexTile == null)
             {
-                mousPosition.GetComponent<MoveStatUI>().SetTurnsNeeded(huveringHexTile.GetCostToMoveToTile());
-                Debug.Log("Cost to move to tile is " + huveringHexTile.GetCostToMoveToTile());
+                return;
+            }
+
+            if (huveringHexTile.GetCostToMoveToTile() > 0)
+            {
+                mousPosition.GetComponent<MoveStatUI>().SetTurnsNeeded(huveringHexTile.GetCostToMoveToTile(), selectedUnit.GetComponent<Unit>().GetEnergyAmount());
             }
             else
             {
@@ -87,13 +93,21 @@ public class UnitActionSystem : MonoBehaviour
             Vector3 tilePosition = LevelSystem.Instance.GetHexWorldPosition(selectedHexTile);
 
             Vector3 moveLocation = new Vector3((tileMovePosition.x + tilePosition.x), (tilePosition.y), (tileMovePosition.y + tilePosition.z));
-            //Vector3 moveLocation = LevelSystem.Instance.GetHexWorldPosition(selectedHexTile);
-            SetUnitDestination(moveLocation);
-            tileMovePoint.SetPointFree(false);
-            //selectedUnit.GetComponent<MoveAction>().SetTarget(selectedHexTile);
-            UnitsOnMap.Instance.DeselectedAllUnitProfiles();
-            selectedUnit = null;
-            MoveableLocations.Instance.ClearMoveableHexTileVisuals();
+
+            //check if unit can make it to tile
+            if (selectedHexTile.GetCostToMoveToTile() != 0 && selectedUnit.GetComponent<Unit>().GetEnergyAmount() >= selectedHexTile.GetCostToMoveToTile())
+            {
+                SetUnitDestination(moveLocation);
+                tileMovePoint.SetPointFree(false);
+                //selectedUnit.GetComponent<MoveAction>().SetTarget(selectedHexTile);
+                selectedUnit.GetComponent<Unit>().RemoveEnergy(selectedHexTile.GetCostToMoveToTile());
+                UnitsOnMap.Instance.DeselectedAllUnitProfiles();
+                selectedUnit = null;
+                MoveableLocations.Instance.ClearMoveableHexTileVisuals();
+                UnitsOnMap.Instance.ReorderUnitList();
+            }
+
+          
         }
         else
         {

@@ -4,6 +4,8 @@ public class Unit : MonoBehaviour
 {
 
     [SerializeField] string name;
+    [SerializeField] int energyAmount; 
+
     [SerializeField] HexTile hexTileOn;
 
     [SerializeField] TileMovePoint tileMovePoint;
@@ -23,6 +25,17 @@ public class Unit : MonoBehaviour
     public string GetName()
     {
         return name;
+    }
+
+    public int GetEnergyAmount()
+    {
+        return energyAmount;
+    }
+
+    public void RemoveEnergy(int energyToRemove)
+    {
+        energyAmount -= energyToRemove;
+        UnitsOnMap.Instance.UpdateUnitProfileEnergy();
     }
 
     public void SetTileMovePoint(TileMovePoint tileMovePoint)
