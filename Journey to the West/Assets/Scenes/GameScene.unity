@@ -490,7 +490,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: John
-  energyAmount: 3
+  energyMax: 75
+  energyAmount: 75
+  energyNeededToMove: 15
 --- !u!114 &376926517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -727,6 +729,7 @@ GameObject:
   - component: {fileID: 565086061}
   - component: {fileID: 565086060}
   - component: {fileID: 565086063}
+  - component: {fileID: 565086064}
   m_Layer: 0
   m_Name: MouseWorld
   m_TagString: Untagged
@@ -798,6 +801,19 @@ MonoBehaviour:
   unitsProfiles: []
   unitIconPrefab: {fileID: 1898531839340081668, guid: 4ddf249da2a61524f971ea7ecc4aadda, type: 3}
   UnitsProfileHolder: {fileID: 1340621192}
+--- !u!114 &565086064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 565086059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0d155e774cf5da47988b364c6aa330d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnStat: 0
 --- !u!1 &594159288
 GameObject:
   m_ObjectHideFlags: 0
@@ -1096,7 +1112,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Wagon
+  energyMax: 0
   energyAmount: 0
+  energyNeededToMove: 0
 --- !u!114 &743970135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2379,7 +2397,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Bill
-  energyAmount: 5
+  energyMax: 75
+  energyAmount: 75
+  energyNeededToMove: 10
 --- !u!4 &1865036472 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4670764120559952, guid: e169e4d9dbd157b498e582065a5f9302, type: 3}

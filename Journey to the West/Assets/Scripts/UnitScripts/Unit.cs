@@ -4,11 +4,15 @@ public class Unit : MonoBehaviour
 {
 
     [SerializeField] string name;
+    [SerializeField] int energyMax;
+
     [SerializeField] int energyAmount; 
 
     [SerializeField] HexTile hexTileOn;
 
     [SerializeField] TileMovePoint tileMovePoint;
+
+    [SerializeField] int energyNeededToMove;
 
     private void Update()
     {
@@ -53,4 +57,13 @@ public class Unit : MonoBehaviour
         return hexTileOn;
     }
 
+    public void ResetEnergy()
+    {
+        energyAmount = energyMax;
+    }
+
+    public int GetEnergyNeededToMove()
+    {
+        return energyNeededToMove;
+    }
 }

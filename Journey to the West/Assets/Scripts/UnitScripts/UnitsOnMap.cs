@@ -102,4 +102,26 @@ public class UnitsOnMap : MonoBehaviour
         unitsOnMap.AddRange(orderUnitList);
         CreateUnitProfiles();
     }
+
+    public bool CheckIfUnitsHaveEnergy()
+    {
+        foreach (Unit unitOnMap in unitsOnMap)
+        {
+            //this will need to change to something that player can set
+            if(unitOnMap.GetEnergyAmount() >= unitOnMap.GetEnergyNeededToMove())
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void ResetUnitsEnergy()
+    {
+        foreach (Unit unitOnMap in unitsOnMap)
+        {
+            unitOnMap.ResetEnergy();
+        }
+        ReorderUnitList();
+    }
 }

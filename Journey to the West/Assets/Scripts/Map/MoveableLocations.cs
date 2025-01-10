@@ -54,7 +54,7 @@ public class MoveableLocations : MonoBehaviour
         movableHexs.Clear();
     }
 
-    public List<MoveAbleHexTileLocation> FindNumberOfMoves(GridPosition startingHex, int maxMoves)
+    public List<MoveAbleHexTileLocation> FindNumberOfMoves(GridPosition startingHex, int unitsAvailableEnergy, int energyNeededToMove)
     {
 
         ClearMoveableHexTileVisuals();
@@ -63,81 +63,98 @@ public class MoveableLocations : MonoBehaviour
 
         List<GridPosition> checkNextNaghbors = new List<GridPosition>();
 
-        foreach (GridPosition naghporTile in checkNaghborTiles)
-        {
-            if (IsValidGridPosition(naghporTile))
-            {
-                movableHexs.Add(new MoveAbleHexTileLocation(naghporTile, 1));
-                checkNextNaghbors.Add(naghporTile);
-            }
-        }
+        //foreach (GridPosition naghporTile in checkNaghborTiles)
+        //{
+        //    if (IsValidGridPosition(naghporTile))
+        //    {
+        //        movableHexs.Add(new MoveAbleHexTileLocation(naghporTile, 1));
+        //        checkNextNaghbors.Add(naghporTile);
+        //    }
+        //}
 
-        checkNaghborTiles.Clear();
-        checkNaghborTiles.AddRange(checkNextNaghbors);
-        checkNextNaghbors.Clear();
+        //checkNaghborTiles.Clear();
+        //checkNaghborTiles.AddRange(checkNextNaghbors);
+        //checkNextNaghbors.Clear();
 
         Debug.Log("Next numver to count " + checkNaghborTiles.Count);
         //movableHexs.Clear();
         //checkNaghborTiles.Clear();
+        int maxTilesCanMove = 0;
 
-        for (int i = 2; maxMoves >= i; i++)
+        if (unitsAvailableEnergy >= energyNeededToMove)
         {
+            maxTilesCanMove = unitsAvailableEnergy / energyNeededToMove;
+
+
             foreach (GridPosition naghporTile in checkNaghborTiles)
             {
-                List<GridPosition> checkTheseNaghbors = GetHexNahbors(naghporTile);
-
-                foreach (GridPosition check in checkTheseNaghbors)
+                if (IsValidGridPosition(naghporTile))
                 {
-                    if (IsValidGridPosition(check))
+                    movableHexs.Add(new MoveAbleHexTileLocation(naghporTile, energyNeededToMove));
+                    checkNextNaghbors.Add(naghporTile);
+                }
+            }
+
+            checkNaghborTiles.Clear();
+            checkNaghborTiles.AddRange(checkNextNaghbors);
+            checkNextNaghbors.Clear();
+
+            for (int i = 2; maxTilesCanMove >= i; i++)
+            {
+                foreach (GridPosition naghporTile in checkNaghborTiles)
+                {
+                    List<GridPosition> checkTheseNaghbors = GetHexNahbors(naghporTile);
+
+                    foreach (GridPosition check in checkTheseNaghbors)
                     {
-                        bool matchFound = false;
-                        foreach (MoveAbleHexTileLocation movable2 in movableHexs)
+                        if (IsValidGridPosition(check))
                         {
-                            if (check.Equals(movable2.GetGridPosition()))
+                            bool matchFound = false;
+                            foreach (MoveAbleHexTileLocation movable2 in movableHexs)
                             {
-                                Debug.Log("tileFoundIn Hex List");
-                                matchFound = true;
-                                break;
-                            }
-                            else
-                            {
-                                Debug.Log("tile not FoundIn naghbor list " + movable2.GetGridPosition().GetPosition() + " : " + check.GetPosition());
-                            }
-                        }
-
-
-                        if (!matchFound)
-                        {
-                            bool matchFoundOnMovable = false;
-                            foreach (GridPosition movable in checkNextNaghbors)
-                            {
-                                if (check.Equals(movable))
+                                if (check.Equals(movable2.GetGridPosition()))
                                 {
-                                    Debug.Log("tileFoundIn naghbor list " + movable.GetPosition() + " : " + check.GetPosition());
-                                    matchFoundOnMovable = true;
+                                    matchFound = true;
                                     break;
                                 }
+                                else
+                                {
+                                }
                             }
-                            if (!matchFoundOnMovable)
+
+
+                            if (!matchFound)
                             {
-                                movableHexs.Add(new MoveAbleHexTileLocation(check, i));
-                                checkNextNaghbors.Add(check);
+                                bool matchFoundOnMovable = false;
+                                foreach (GridPosition movable in checkNextNaghbors)
+                                {
+                                    if (check.Equals(movable))
+                                    {
+                                        matchFoundOnMovable = true;
+                                        break;
+                                    }
+                                }
+                                if (!matchFoundOnMovable)
+                                {
+                                    movableHexs.Add(new MoveAbleHexTileLocation(check, i * energyNeededToMove));
+                                    checkNextNaghbors.Add(check);
+                                }
                             }
                         }
                     }
                 }
+                checkNaghborTiles.Clear();
+                checkNaghborTiles.AddRange(checkNextNaghbors);
+                checkNextNaghbors.Clear();
             }
-            checkNaghborTiles.Clear();
-            checkNaghborTiles.AddRange(checkNextNaghbors);
-            checkNextNaghbors.Clear();
-        }
 
-        foreach(MoveAbleHexTileLocation gridPosition in movableHexs)
-        {
-            LevelSystem.Instance.GetHexTile(gridPosition.GetGridPosition()).SetCostToMoveTo(gridPosition.GetMovesNeeded());
-        }
+            foreach (MoveAbleHexTileLocation gridPosition in movableHexs)
+            {
+                LevelSystem.Instance.GetHexTile(gridPosition.GetGridPosition()).SetCostToMoveTo(gridPosition.GetMovesNeeded());
+            }
 
-        DrawMoveableHexis(movableHexs);
+            DrawMoveableHexis(movableHexs);
+        }
         return movableHexs;
        
     }
@@ -170,12 +187,12 @@ public class MoveableLocations : MonoBehaviour
 
 public class MoveAbleHexTileLocation
 {
-    int movesNeeded;
+    int energyNeeded;
     GridPosition hexPosition;
 
-    public MoveAbleHexTileLocation(GridPosition hexPosition, int movesNeeded)
+    public MoveAbleHexTileLocation(GridPosition hexPosition, int energyNeeded)
     {
-        this.movesNeeded = movesNeeded;
+        this.energyNeeded = energyNeeded;
         this.hexPosition = hexPosition;
     }
 
@@ -186,6 +203,6 @@ public class MoveAbleHexTileLocation
 
     public int GetMovesNeeded()
     {
-        return movesNeeded;
+        return energyNeeded;
     }
 }
