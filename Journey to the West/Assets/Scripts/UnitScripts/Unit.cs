@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class Unit : MonoBehaviour
@@ -85,5 +86,11 @@ public class Unit : MonoBehaviour
     public int GetHunger()
     {
         return hunger;
+    }
+
+    public void RestoreHunger(int hungerToRestore)
+    {
+        hunger += hungerToRestore;
+        energyAmount -= 10;
     }
 }
