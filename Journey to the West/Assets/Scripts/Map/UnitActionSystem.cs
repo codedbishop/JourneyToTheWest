@@ -22,9 +22,6 @@ public class UnitActionSystem : MonoBehaviour
 
     public event EventHandler OnHexTileSelected;//The UnitOnTilePanel listines to this event to update the panel of units on the selected tile 
 
-    public enum ActionState { none, move, eat };
-    public ActionState actionState;
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -62,8 +59,7 @@ public class UnitActionSystem : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0))
             {
-                PreforemAction(actualMoucePosition);
-                //HandelSelectedAction(actualMoucePosition);
+                HandelSelectedAction(actualMoucePosition);
             }
 
             if (Input.GetMouseButton(1))
@@ -75,41 +71,6 @@ public class UnitActionSystem : MonoBehaviour
             }
         }
     }
-
-    public void CheckIfUnitWasClickedOn(Vector3 actualMoucePosition)
-    {
-        GridPosition mouseGridPosition = LevelSystem.Instance.GetGridPosition(actualMoucePosition);
-        selectedHexTile = LevelSystem.Instance.GetHexTile(mouseGridPosition);
-        if (selectedUnit != null)
-        {
-            PanelController.Instance.SetUnitActionPanelActive();
-        }
-        else
-        {
-            OnHexTileSelected?.Invoke(this, EventArgs.Empty);
-        }
-    }
-
-    public void PreforemAction(Vector3 actualMoucePosition)
-    {
-        switch (actionState)
-        {
-            case ActionState.none:
-                CheckIfUnitWasClickedOn(actualMoucePosition);
-                
-
-                break;
-            case ActionState.move:
-                HandelSelectedAction(actualMoucePosition);
-                break;
-
-            case ActionState.eat:
-                selectedUnit.GetComponent<Unit>().RestoreHunger(10);
-                actionState = ActionState.none;
-                break;
-        }
-    }
-
 
     private void HandelSelectedAction(Vector3 actualMoucePosition)
     {
@@ -145,8 +106,6 @@ public class UnitActionSystem : MonoBehaviour
                 MoveableLocations.Instance.ClearMoveableHexTileVisuals();
                 UnitsOnMap.Instance.ReorderUnitList();
                 TurnController.Instance.CheckTurnStat();
-                PanelController.Instance.SetUntOnnTilePanalActive();
-                actionState = ActionState.none;
             }  
         }
         else
@@ -155,21 +114,16 @@ public class UnitActionSystem : MonoBehaviour
         }
     }
 
-    public void FindTilesUnitCanMoveTo()
-    {
-        List<MoveAbleHexTileLocation> unitMoveableLocations = MoveableLocations.Instance.FindNumberOfMoves(selectedUnit.GetComponent<Unit>().GetHexTile().GetGridPosition(), selectedUnit.GetComponent<Unit>().GetEnergyAmount(), unit.GetComponent<Unit>().GetEnergyNeededToMove());
-
-        proceduralGraphMover.target = selectedUnit.transform; // Update the graph center (optional, depending on your ProceduralGraphMover configuration)
-        UpdateGridCenter(selectedUnit.transform.position);
-    }
-
     public void SetSelectedUnit(Unit unit)
     {
         selectedUnit = unit.gameObject;
 
-        PanelController.Instance.SetUnitActionPanelActive();
-        UnitsOnMap.Instance.SetActiveUnit(selectedUnit);
+        //finds the hexis that the unit can move to
+        List<MoveAbleHexTileLocation> unitMoveableLocations = MoveableLocations.Instance.FindNumberOfMoves(unit.GetHexTile().GetGridPosition(), unit.GetEnergyAmount(), unit.GetEnergyNeededToMove());
 
+        proceduralGraphMover.target = selectedUnit.transform; // Update the graph center (optional, depending on your ProceduralGraphMover configuration)
+        UpdateGridCenter(selectedUnit.transform.position);
+        UnitsOnMap.Instance.SetActiveUnit(selectedUnit);
     }
 
     public HexTile GetSelectedHexTile()
@@ -198,20 +152,4 @@ public class UnitActionSystem : MonoBehaviour
         }
 
     }
-
-    public void SetActionStateToMove()
-    {
-        actionState = ActionState.move;
-        FindTilesUnitCanMoveTo();
-        Debug.Log("Move Action");
-    }
-
-    public void FeedUnit()
-    {
-        actionState = ActionState.eat;
-        PreforemAction(new Vector3(0,0,0));
-
-        UnitsOnMap.Instance.UpdateUnitProfileStats();
-    }
-
 }

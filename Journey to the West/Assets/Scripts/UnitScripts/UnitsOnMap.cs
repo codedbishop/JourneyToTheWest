@@ -124,13 +124,4 @@ public class UnitsOnMap : MonoBehaviour
         }
         ReorderUnitList();
     }
-
-    public void UpdateUnitProfileStats()
-    {
-        foreach (UnitProfile unitProfile in unitsProfiles)
-        {
-            unitProfile.UpdateEnergy();
-            unitProfile.UpdateHunger();
-        }
-    }
 }
