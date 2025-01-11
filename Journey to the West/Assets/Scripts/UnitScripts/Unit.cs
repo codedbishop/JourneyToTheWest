@@ -6,13 +6,18 @@ public class Unit : MonoBehaviour
     [SerializeField] string name;
     [SerializeField] int energyMax;
 
-    [SerializeField] int energyAmount; 
+    [SerializeField] int energyAmount;
+
+    [SerializeField] int hunger;
+    [SerializeField] int maxHunger;
 
     [SerializeField] HexTile hexTileOn;
 
     [SerializeField] TileMovePoint tileMovePoint;
 
     [SerializeField] int energyNeededToMove;
+
+
 
     private void Update()
     {
@@ -59,11 +64,26 @@ public class Unit : MonoBehaviour
 
     public void ResetEnergy()
     {
-        energyAmount = energyMax;
+        int neededEnergy = energyMax - energyAmount;
+        if(hunger >= neededEnergy / 2)
+        {
+            hunger -= neededEnergy / 2;
+            energyAmount = energyMax;
+        }
+        else
+        {
+            energyAmount += hunger * 2;
+            hunger = 0;
+        }
     }
 
     public int GetEnergyNeededToMove()
     {
         return energyNeededToMove;
+    }
+
+    public int GetHunger()
+    {
+        return hunger;
     }
 }

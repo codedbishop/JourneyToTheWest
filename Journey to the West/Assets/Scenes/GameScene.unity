@@ -492,6 +492,8 @@ MonoBehaviour:
   name: John
   energyMax: 75
   energyAmount: 75
+  hunger: 75
+  maxHunger: 0
   energyNeededToMove: 15
 --- !u!114 &376926517
 MonoBehaviour:
@@ -1114,6 +1116,8 @@ MonoBehaviour:
   name: Wagon
   energyMax: 0
   energyAmount: 0
+  hunger: 0
+  maxHunger: 0
   energyNeededToMove: 0
 --- !u!114 &743970135
 MonoBehaviour:
@@ -2399,6 +2403,8 @@ MonoBehaviour:
   name: Bill
   energyMax: 75
   energyAmount: 75
+  hunger: 90
+  maxHunger: 0
   energyNeededToMove: 10
 --- !u!4 &1865036472 stripped
 Transform:
