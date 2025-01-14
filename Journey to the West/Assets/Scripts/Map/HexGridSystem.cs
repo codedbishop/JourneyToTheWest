@@ -14,6 +14,8 @@ public class HexGridSystem
 
     private HexTile[,] hexTileArray;
 
+    
+
     public HexGridSystem(int mapHight, int mapWidth, float cellSize)
     {
         this.mapHight = mapHight;
@@ -30,13 +32,20 @@ public class HexGridSystem
                 hexTileArray[x, z] = new HexTile(this, gridPosition);//sets the points to the hexTile
             }
         }
+
+        
+    }
+
+    public void AddHuntableGameObjectToMap(GameObject gameObjectToAdd)
+    {
+        hexTileArray[0, 0].AddTileModifier(gameObjectToAdd);
     }
 
     public HexTile GetHexTile(GridPosition gridPosition)
     {
-        if(gridPosition.x >=0 && gridPosition.x <= mapWidth)
+        if(gridPosition.x >=0 && gridPosition.x < mapWidth)
         {
-            if (gridPosition.z >= 0 && gridPosition.z <= mapHight)
+            if (gridPosition.z >= 0 && gridPosition.z < mapHight)
             {
                 return hexTileArray[gridPosition.x, gridPosition.z];
             }

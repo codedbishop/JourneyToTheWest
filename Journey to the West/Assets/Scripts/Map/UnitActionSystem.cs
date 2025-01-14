@@ -62,7 +62,7 @@ public class UnitActionSystem : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0))
             {
-                PreforemAction(actualMoucePosition);
+                PreformAction(actualMoucePosition);
                 //HandelSelectedAction(actualMoucePosition);
             }
 
@@ -90,13 +90,12 @@ public class UnitActionSystem : MonoBehaviour
         }
     }
 
-    public void PreforemAction(Vector3 actualMoucePosition)
+    public void PreformAction(Vector3 actualMoucePosition)
     {
         switch (actionState)
         {
             case ActionState.none:
                 CheckIfUnitWasClickedOn(actualMoucePosition);
-                
 
                 break;
             case ActionState.move:
@@ -145,7 +144,7 @@ public class UnitActionSystem : MonoBehaviour
                 MoveableLocations.Instance.ClearMoveableHexTileVisuals();
                 UnitsOnMap.Instance.ReorderUnitList();
                 TurnController.Instance.CheckTurnStat();
-                PanelController.Instance.SetUntOnnTilePanalActive();
+                PanelController.Instance.SetUntOnTilePanalActive();
                 actionState = ActionState.none;
             }  
         }
@@ -209,9 +208,16 @@ public class UnitActionSystem : MonoBehaviour
     public void FeedUnit()
     {
         actionState = ActionState.eat;
-        PreforemAction(new Vector3(0,0,0));
+        PreformAction(new Vector3(0,0,0));
 
         UnitsOnMap.Instance.UpdateUnitProfileStats();
+    }
+
+    public void HuntTile()
+    {
+        Debug.Log("Hunt");
+        Destroy(selectedHexTile.GetHuntableObject());
+        selectedHexTile.RemoveHuntableObject();
     }
 
 }

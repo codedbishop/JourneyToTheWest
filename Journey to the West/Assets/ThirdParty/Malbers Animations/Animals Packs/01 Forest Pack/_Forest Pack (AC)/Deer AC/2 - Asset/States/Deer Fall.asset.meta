@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: ba4291c69f73910408b586cca23a3194
+labels:
+- Animal
+- State
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 0
+  packageName: Poly Art Forest PA 3.9 AC (1.4.3 D)
+  packageVersion: 3.9
+  assetPath: Assets/ThirdParty/Malbers Animations/Animals Packs/01 Forest Pack/_Forest Pack (AC)/Deer AC/2 - Asset/States/Deer Fall.asset
+  uploadId: 625397

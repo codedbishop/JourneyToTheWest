@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 353af5859f407d141ac9a0b8b90763ce
+labels:
+- Animal
+- Base
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 128568
+  packageName: Poly Art: Animal Forest Set
+  packageVersion: 3.9
+  assetPath: Assets/ThirdParty/Malbers Animations/Animals Packs/01 Forest Pack/_Forest Pack (AC)/Deer AC/3 - Prefabs/Deer.prefab
+  uploadId: 625397

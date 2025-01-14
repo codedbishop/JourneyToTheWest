@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Splines;
+using static Unity.Cinemachine.CinemachineFreeLookModifier;
 
 public class HexTile
 {
@@ -16,6 +17,10 @@ public class HexTile
     private List<TileMovePoint> tileMovePoints;
 
     private int selectidUnitCostToMove;
+
+    public TileModifires tileModifiers;
+
+    public GameObject huntableObject;
 
     public void Start()
     {
@@ -127,6 +132,37 @@ public class HexTile
     {
         return selectidUnitCostToMove;
     }
+
+    public ITileModifire GetTileModifire()
+    {
+        Debug.Log("Checking if has huntable");
+        
+        if (huntableObject != null)
+        {
+            return huntableObject.GetComponent<ITileModifire>();
+        }
+        else
+        {
+            return null;
+        }
+        //return huntableObject.GetComponent<> tileModifiers;
+    }
+
+    public void AddTileModifier(GameObject addGameObject)
+    {
+        huntableObject = addGameObject;
+        //tileModifiers = new HuntableSO();
+    }
+
+    public GameObject GetHuntableObject()
+    {
+        return huntableObject;
+    }
+
+    public void RemoveHuntableObject()
+    {
+        huntableObject = null;
+    }
 }
 
 public class TileMovePoint
@@ -152,8 +188,6 @@ public class TileMovePoint
 
     public Vector2 GetPointPosition()
     {
-        return pointPostition; 
+        return pointPostition;
     }
-
-   
 }

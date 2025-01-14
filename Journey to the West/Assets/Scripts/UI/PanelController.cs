@@ -20,8 +20,9 @@ public class PanelController : MonoBehaviour
     {
         unitActionPanal.SetActive(true);
         unitOnTilePanel.SetActive(false);
+        unitActionPanal.GetComponent<UnitActionsUi>().SetUpButtons();
     }
-    public void SetUntOnnTilePanalActive()
+    public void SetUntOnTilePanalActive()
     {
         unitActionPanal.SetActive(false);
         unitOnTilePanel.SetActive(true);

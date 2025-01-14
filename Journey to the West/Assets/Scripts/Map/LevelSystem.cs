@@ -18,6 +18,8 @@ public class LevelSystem : MonoBehaviour
 
     [SerializeField] Transform treePrefab;
 
+    [SerializeField] GameObject huntablePrefab;
+
 
     private void Awake()
     {
@@ -29,6 +31,7 @@ public class LevelSystem : MonoBehaviour
         hexGridSystem = new HexGridSystem(mapHight, mapWidth, cellSize);//creates the object that holds the hex data for the map
         GenerateHexTiles();
         SpawnTrees();
+        hexGridSystem.AddHuntableGameObjectToMap(huntablePrefab);
 
     }
 

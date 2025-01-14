@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 1a2e5401f2345b440ac8715facac1c92
+labels:
+- Animal
+- State
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 0
+  packageName: Poly Art Forest PA 3.9 AC (1.4.3 D)
+  packageVersion: 3.9
+  assetPath: Assets/ThirdParty/Malbers Animations/Animals Packs/01 Forest Pack/_Forest Pack (AC)/Deer AC/2 - Asset/States/Deer Death.asset
+  uploadId: 625397
