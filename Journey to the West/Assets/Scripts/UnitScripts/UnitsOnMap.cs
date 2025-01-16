@@ -44,10 +44,10 @@ public class UnitsOnMap : MonoBehaviour
 
     public void UpdateUnitProfileEnergy()
     {
-        //foreach (UnitProfile profile in unitsProfiles)
-        //{
-        //    profile.UpdateEnergy();
-        //}
+        foreach (UnitProfile profile in unitsProfiles)
+        {
+            profile.UpdateEnergy();
+        }
     }
 
     public void SetActiveUnit(GameObject selectedUnit)

@@ -1,4 +1,5 @@
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -17,6 +18,8 @@ public class LevelSystem : MonoBehaviour
     HexGridSystem hexGridSystem;
 
     [SerializeField] Transform treePrefab;
+    [SerializeField] Transform deerPrefab;
+
 
     [SerializeField] GameObject huntablePrefab;
 
@@ -31,7 +34,8 @@ public class LevelSystem : MonoBehaviour
         hexGridSystem = new HexGridSystem(mapHight, mapWidth, cellSize);//creates the object that holds the hex data for the map
         GenerateHexTiles();
         SpawnTrees();
-        hexGridSystem.AddHuntableGameObjectToMap(huntablePrefab);
+        SpawnDeer();
+        //hexGridSystem.AddHuntableGameObjectToMap(huntablePrefab);
 
     }
 
@@ -63,6 +67,19 @@ public class LevelSystem : MonoBehaviour
             Instantiate(treePrefab, new Vector3(xPosition, 0, zPosition), Quaternion.identity);
         }
 
+    }
+
+    public void SpawnDeer()
+    {
+        int totalNumber = 50;
+        for (int x = 0; x < totalNumber; x++)
+        {
+            float xPosition = UnityEngine.Random.Range(0, ((mapWidth - 2) * 6));
+            float zPosition = UnityEngine.Random.Range(0, (mapHight * 3.5f));
+            Vector3 spawnLocation = new Vector3(xPosition, 0, zPosition);
+            GameObject deerObject = Instantiate(deerPrefab, spawnLocation, Quaternion.identity).GameObject();
+            hexGridSystem.AddHuntableGameObjectToMap(deerObject, GetHexTileFromWorldPosition(spawnLocation));
+        }
     }
     
 

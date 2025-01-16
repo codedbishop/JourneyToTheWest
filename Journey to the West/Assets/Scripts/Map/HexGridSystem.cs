@@ -36,9 +36,9 @@ public class HexGridSystem
         
     }
 
-    public void AddHuntableGameObjectToMap(GameObject gameObjectToAdd)
+    public void AddHuntableGameObjectToMap(GameObject gameObjectToAdd, HexTile spawnHexTile)
     {
-        hexTileArray[0, 0].AddTileModifier(gameObjectToAdd);
+        spawnHexTile.AddTileModifier(gameObjectToAdd);
     }
 
     public HexTile GetHexTile(GridPosition gridPosition)

@@ -6,6 +6,9 @@ public class PanelController : MonoBehaviour
     [SerializeField] GameObject unitActionPanal;
     [SerializeField] GameObject unitOnTilePanel;
 
+    [SerializeField] GameObject unitInventoryPanal;
+
+
     public void Awake()
     {
         Instance = this;
@@ -21,10 +24,27 @@ public class PanelController : MonoBehaviour
         unitActionPanal.SetActive(true);
         unitOnTilePanel.SetActive(false);
         unitActionPanal.GetComponent<UnitActionsUi>().SetUpButtons();
+        unitInventoryPanal.SetActive(true);
+        unitInventoryPanal.GetComponent<InventoryUi>().SetInventorySlots(UnitActionSystem.Instance.GetSelectedUnit().GetComponent<Unit>().GetInventory());
     }
+
+    public void ResetInventory()
+    {
+        unitInventoryPanal.GetComponent<InventoryUi>().ResetInventorySlots();
+        unitInventoryPanal.GetComponent<InventoryUi>().SetInventorySlots(UnitActionSystem.Instance.GetSelectedUnit().GetComponent<Unit>().GetInventory());
+    }
+
+    public void ResetUnitActions()
+    {
+        unitActionPanal.GetComponent<UnitActionsUi>().SetUpButtons();
+    }
+
+
     public void SetUntOnTilePanalActive()
     {
         unitActionPanal.SetActive(false);
         unitOnTilePanel.SetActive(true);
+        unitInventoryPanal.SetActive(false);
+
     }
 }

@@ -18,8 +18,6 @@ public class HexTile
 
     private int selectidUnitCostToMove;
 
-    public TileModifires tileModifiers;
-
     public GameObject huntableObject;
 
     public void Start()
