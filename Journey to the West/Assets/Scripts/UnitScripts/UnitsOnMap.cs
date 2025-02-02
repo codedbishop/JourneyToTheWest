@@ -50,6 +50,15 @@ public class UnitsOnMap : MonoBehaviour
         }
     }
 
+    public void UpdateUnitProfileMoral()
+    {
+        foreach (UnitProfile profile in unitsProfiles)
+        {
+            profile.UpdateMoral();
+        }
+    }
+    
+
     public void SetActiveUnit(GameObject selectedUnit)
     {
         DeselectedAllUnitProfiles();
@@ -120,7 +129,7 @@ public class UnitsOnMap : MonoBehaviour
     {
         foreach (Unit unitOnMap in unitsOnMap)
         {
-            unitOnMap.ResetEnergy();
+            unitOnMap.GetEnergyLevel();
         }
         ReorderUnitList();
     }

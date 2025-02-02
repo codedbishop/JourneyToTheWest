@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2ee7a6aabff973c4098cbc17846231a8
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 0
+  packageName: POLYGON_Western_Frontier_Unity_2020_3_v1_5
+  packageVersion: 
+  assetPath: Assets/ThirdParty/PolygonWesternFrontier/Models/CollisionConvex/SM_Prop_Campfire_Small_01_Convex.asset
+  uploadId: 0

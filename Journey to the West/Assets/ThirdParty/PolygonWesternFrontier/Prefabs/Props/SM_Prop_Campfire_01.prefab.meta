@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: ac728ce9ca76cf84bb4f051bad08e5b0
+timeCreated: 1538519432
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 0
+  packageName: POLYGON_Western_Frontier_Unity_2020_3_v1_5
+  packageVersion: 
+  assetPath: Assets/ThirdParty/PolygonWesternFrontier/Prefabs/Props/SM_Prop_Campfire_01.prefab
+  uploadId: 0

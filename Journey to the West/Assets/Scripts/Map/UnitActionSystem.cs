@@ -83,6 +83,7 @@ public class UnitActionSystem : MonoBehaviour
         if (selectedUnit != null)
         {
             PanelController.Instance.SetUnitActionPanelActive();
+            //selectedUnit.GetComponent<Unit>().CreateActions();
         }
         else
         {
@@ -156,7 +157,9 @@ public class UnitActionSystem : MonoBehaviour
 
     public void FindTilesUnitCanMoveTo()
     {
-        List<MoveAbleHexTileLocation> unitMoveableLocations = MoveableLocations.Instance.FindNumberOfMoves(selectedUnit.GetComponent<Unit>().GetHexTile().GetGridPosition(), selectedUnit.GetComponent<Unit>().GetEnergyAmount(), unit.GetComponent<Unit>().GetEnergyNeededToMove());
+        Debug.Log(selectedUnit.transform.name + " needs " + selectedUnit.GetComponent<Unit>().GetEnergyNeededToMove() + " energy needed to move");
+
+        List<MoveAbleHexTileLocation> unitMoveableLocations = MoveableLocations.Instance.FindNumberOfMoves(selectedUnit.GetComponent<Unit>().GetHexTile().GetGridPosition(), selectedUnit.GetComponent<Unit>().GetEnergyAmount(), selectedUnit.GetComponent<Unit>().GetEnergyNeededToMove());
 
         proceduralGraphMover.target = selectedUnit.transform; // Update the graph center (optional, depending on your ProceduralGraphMover configuration)
         UpdateGridCenter(selectedUnit.transform.position);
@@ -167,6 +170,8 @@ public class UnitActionSystem : MonoBehaviour
         selectedUnit = unit.gameObject;
 
         PanelController.Instance.SetUnitActionPanelActive();
+        selectedUnit.GetComponent<Unit>().CreateActions();
+
         UnitsOnMap.Instance.SetActiveUnit(selectedUnit);
 
     }
@@ -205,31 +210,31 @@ public class UnitActionSystem : MonoBehaviour
         Debug.Log("Move Action");
     }
 
-    public void FeedUnit()
-    {
-        actionState = ActionState.eat;
-        PreformAction(new Vector3(0,0,0));
-        selectedUnit.GetComponent<Unit>().RemoveFoodItemFromInventory();
-        PanelController.Instance.ResetInventory();
-        UnitsOnMap.Instance.UpdateUnitProfileStats();
-        PanelController.Instance.ResetUnitActions();
+    //public void FeedUnit()
+    //{
+    //    actionState = ActionState.eat;
+    //    PreformAction(new Vector3(0,0,0));
+    //    selectedUnit.GetComponent<Unit>().RemoveFoodItemFromInventory();
+    //    PanelController.Instance.ResetInventory();
+    //    UnitsOnMap.Instance.UpdateUnitProfileStats();
+    //    PanelController.Instance.ResetUnitActions();
 
-    }
+    //}
 
-    public void HuntTile()
-    {
-        Debug.Log("Hunt");
-        selectedUnit.GetComponent<Unit>().RemoveEnergy(20);
+    //public void HuntTile()
+    //{
+    //    Debug.Log("Hunt");
+    //    selectedUnit.GetComponent<Unit>().RemoveEnergy(20);
 
-        Debug.Log(selectedHexTile.GetHuntableObject().GetComponent<DeerAI>().GetItemDrop());
-        selectedUnit.GetComponent<Unit>().AddItemToInventory(selectedHexTile.GetHuntableObject().GetComponent<DeerAI>().GetItemDrop());
-        PanelController.Instance.GetComponent<PanelController>().ResetInventory();
+    //    Debug.Log(selectedHexTile.GetHuntableObject().GetComponent<DeerAI>().GetItemDrop());
+    //    selectedUnit.GetComponent<Unit>().AddItemToInventory(selectedHexTile.GetHuntableObject().GetComponent<DeerAI>().GetItemDrop());
+    //    PanelController.Instance.GetComponent<PanelController>().ResetInventory();
 
-        Destroy(selectedHexTile.GetHuntableObject());
-        selectedHexTile.RemoveHuntableObject();
-        PanelController.Instance.ResetUnitActions();
+    //    Destroy(selectedHexTile.GetHuntableObject());
+    //    selectedHexTile.RemoveHuntableObject();
+    //    PanelController.Instance.ResetUnitActions();
 
-    }
+    //}
 
     public GameObject GetSelectedUnit()
     {

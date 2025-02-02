@@ -47,4 +47,8 @@ public class PanelController : MonoBehaviour
         unitInventoryPanal.SetActive(false);
 
     }
+
+    public void AddAction(UnitActions unitActions) => unitActionPanal.GetComponent<UnitActionsUi>().AddAction(unitActions);
+
+    public void DestroyButtons() => unitActionPanal.GetComponent <UnitActionsUi>().DestroyButtons();
 }

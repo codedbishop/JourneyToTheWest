@@ -9,6 +9,7 @@ public class UnitProfile : MonoBehaviour
     [SerializeField] private TMP_Text unitNameText;
     [SerializeField] private TMP_Text unitEnergyText;
     [SerializeField] private TMP_Text unitHungerText;
+    [SerializeField] private TMP_Text unitMoral;
     [SerializeField] Transform selectedUnit;
     [SerializeField] Transform OutOfMovesBorder;
     [SerializeField] Transform HasMovesBorder;
@@ -23,6 +24,7 @@ public class UnitProfile : MonoBehaviour
         unitNameText.text = unit.GetName();
         unitEnergyText.text = unit.GetEnergyAmount().ToString();
         unitHungerText.text = unit.GetHunger().ToString();
+        unitMoral.text = unit.GetMoral().ToString();
         SetHasEnergyBorder();
     }
 
@@ -49,6 +51,11 @@ public class UnitProfile : MonoBehaviour
     {
         unitEnergyText.text = unitOnThisButton.GetEnergyAmount().ToString();
 
+    }
+
+    public void UpdateMoral()
+    {
+        unitMoral.text = unitOnThisButton.GetMoral().ToString();
     }
 
     public void UpdateHunger()

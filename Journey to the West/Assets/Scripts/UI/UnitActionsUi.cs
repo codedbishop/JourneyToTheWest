@@ -15,20 +15,25 @@ public class UnitActionsUi : MonoBehaviour
     {
         DestroyButtons();
 
-        Instantiate(buttonTemplate, this.transform).GetComponent<UnitActionButton>().SetUpButton("Move", SetMoveAction);
+        //Instantiate(buttonTemplate, this.transform).GetComponent<UnitActionButton>().SetUpButton("Move", SetMoveAction);
 
         //this hardcoded meat item so will need to be changed to be more dinamic. like using a foodSO 
-        if (UnitActionSystem.Instance.GetSelectedUnit().GetComponent<Unit>().CheckForFood())
-        {
-            Instantiate(buttonTemplate, this.transform).GetComponent<UnitActionButton>().SetUpButton("Eat", FeedUnit);
-        }
+        //if (UnitActionSystem.Instance.GetSelectedUnit().GetComponent<Unit>().CheckForFood())
+        //{
+        //    Instantiate(buttonTemplate, this.transform).GetComponent<UnitActionButton>().SetUpButton("Eat", FeedUnit);
+        //}
 
 
-        if (UnitActionSystem.Instance.GetSelectedHexTile().GetTileModifire() != null && UnitActionSystem.Instance.GetSelectedUnit().GetComponent<Unit>().GetEnergyAmount() >= 20)
-        {
-            unitActionButton = Instantiate(buttonTemplate, this.transform).GetComponent<UnitActionButton>();
-            unitActionButton.SetUpButton("Hunt", UnitActionSystem.Instance.HuntTile);
-        }
+        //if (UnitActionSystem.Instance.GetSelectedHexTile().GetTileModifire() != null && UnitActionSystem.Instance.GetSelectedUnit().GetComponent<Unit>().GetEnergyAmount() >= 20)
+        //{
+        //    unitActionButton = Instantiate(buttonTemplate, this.transform).GetComponent<UnitActionButton>();
+        //    unitActionButton.SetUpButton("Hunt", UnitActionSystem.Instance.HuntTile);
+        //}
+    }
+
+    public void AddAction(UnitActions unitActions)
+    {
+        Instantiate(buttonTemplate, this.transform).GetComponent<UnitActionButton>().SetUpButton(unitActions.GetActionName(), unitActions.PreformAction);
     }
 
     public void DestroyButtons()
@@ -46,6 +51,6 @@ public class UnitActionsUi : MonoBehaviour
 
     public void FeedUnit()
     {
-        UnitActionSystem.Instance.FeedUnit();
+        //UnitActionSystem.Instance.FeedUnit();
     }
 }
