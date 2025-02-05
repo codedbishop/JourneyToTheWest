@@ -142,4 +142,23 @@ public class UnitsOnMap : MonoBehaviour
             unitProfile.UpdateHunger();
         }
     }
+
+    public void SwapUnitsOnMap(Unit oldUnit, Unit newUnit)
+    {
+        for (int i = 0; i < unitsOnMap.Count; i++)
+        {
+            if(unitsOnMap[i] == oldUnit)
+            {
+                unitsOnMap[i] = newUnit;
+                break;
+            }
+        }
+
+        foreach (UnitProfile profile in unitsProfiles)
+        {
+            Destroy(profile.gameObject);
+        }
+        unitsProfiles.Clear();
+        CreateUnitProfiles();
+    }
 }

@@ -210,32 +210,6 @@ public class UnitActionSystem : MonoBehaviour
         Debug.Log("Move Action");
     }
 
-    //public void FeedUnit()
-    //{
-    //    actionState = ActionState.eat;
-    //    PreformAction(new Vector3(0,0,0));
-    //    selectedUnit.GetComponent<Unit>().RemoveFoodItemFromInventory();
-    //    PanelController.Instance.ResetInventory();
-    //    UnitsOnMap.Instance.UpdateUnitProfileStats();
-    //    PanelController.Instance.ResetUnitActions();
-
-    //}
-
-    //public void HuntTile()
-    //{
-    //    Debug.Log("Hunt");
-    //    selectedUnit.GetComponent<Unit>().RemoveEnergy(20);
-
-    //    Debug.Log(selectedHexTile.GetHuntableObject().GetComponent<DeerAI>().GetItemDrop());
-    //    selectedUnit.GetComponent<Unit>().AddItemToInventory(selectedHexTile.GetHuntableObject().GetComponent<DeerAI>().GetItemDrop());
-    //    PanelController.Instance.GetComponent<PanelController>().ResetInventory();
-
-    //    Destroy(selectedHexTile.GetHuntableObject());
-    //    selectedHexTile.RemoveHuntableObject();
-    //    PanelController.Instance.ResetUnitActions();
-
-    //}
-
     public GameObject GetSelectedUnit()
     {
         return selectedUnit;

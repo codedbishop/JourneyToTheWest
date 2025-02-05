@@ -5,7 +5,6 @@ public class Hunt : UnitActions
 {
     public override void CanPreformAction()
     {
-        Debug.Log("Adding Eat Action");
         if (CheckForHuntable())
         {
             PanelController.Instance.AddAction(this);
