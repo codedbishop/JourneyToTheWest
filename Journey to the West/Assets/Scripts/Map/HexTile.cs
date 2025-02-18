@@ -20,10 +20,11 @@ public class HexTile
 
     public GameObject huntableObject;
 
+    public List<UnitActions> actionsOnTile;
+
     public void Start()
     {
         
-       
     }
 
     public HexTile(HexGridSystem gridSystem, GridPosition gridPosition)
@@ -31,7 +32,10 @@ public class HexTile
         this.gridSystem = gridSystem;
         this.gridPosition = gridPosition;
         units = new List<Unit>();
+        actionsOnTile = new List<UnitActions>();
+
         CreateListOfTileMovePoints();
+
 
     }
 
@@ -131,13 +135,11 @@ public class HexTile
         return selectidUnitCostToMove;
     }
 
-    public ITileModifire GetTileModifire()
-    {
-        Debug.Log("Checking if has huntable");
-        
+    public GameObject GetTileModifire()
+    {      
         if (huntableObject != null)
         {
-            return huntableObject.GetComponent<ITileModifire>();
+            return huntableObject;
         }
         else
         {
@@ -149,6 +151,12 @@ public class HexTile
     public void AddTileModifier(GameObject addGameObject)
     {
         huntableObject = addGameObject;
+        UnitActions unitActions = addGameObject.GetComponent<ITileModifire>().GetUnitAction();
+
+        //AddActionToTile(unitActions, addGameObject);
+
+        actionsOnTile.Add(unitActions);
+
         //tileModifiers = new HuntableSO();
     }
 
@@ -160,6 +168,16 @@ public class HexTile
     public void RemoveHuntableObject()
     {
         huntableObject = null;
+    }
+
+    public List<UnitActions> GetInteractableOnTileList()
+    {
+        return actionsOnTile;
+    }
+
+    public void AddActionToTile(UnitActions action)
+    {
+        actionsOnTile.Add(action);
     }
 }
 
@@ -188,4 +206,8 @@ public class TileMovePoint
     {
         return pointPostition;
     }
+
+   
 }
+
+

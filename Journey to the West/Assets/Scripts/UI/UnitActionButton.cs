@@ -17,6 +17,6 @@ public class UnitActionButton : MonoBehaviour
     public void PreformAction()
     {
         buttonAction?.Invoke();
-        UnitActionSystem.Instance.GetSelectedUnit().GetComponent<Unit>().CreateActions();
+        UnitActionSystem.Instance.UpdateUnitActions();//.GetComponent<Unit>().CreateActions();
     }
 }

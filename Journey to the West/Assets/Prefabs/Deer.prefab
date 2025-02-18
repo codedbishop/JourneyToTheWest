@@ -43,8 +43,8 @@ GameObject:
   - component: {fileID: 2723296759442856632}
   - component: {fileID: 4636168810436883102}
   - component: {fileID: 4997973736818186539}
-  - component: {fileID: 7796049340835262347}
   - component: {fileID: 1206327059184383081}
+  - component: {fileID: 2926626867668812911}
   m_Layer: 20
   m_Name: Deer
   m_TagString: Animal
@@ -119,18 +119,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &7796049340835262347
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 221777147010962183}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68ac6023ee75abf41ae6fb89f3f31678, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1206327059184383081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,6 +132,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemDrop: {fileID: 11400000, guid: 249ed6621e2f5db44b18763eb35270ac, type: 2}
+  unitAction: {fileID: 2926626867668812911}
+--- !u!114 &2926626867668812911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 221777147010962183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62593b6d9f148684f8c803cbcad00eff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionName: Hunt
 --- !u!1 &369983884052953064
 GameObject:
   m_ObjectHideFlags: 0

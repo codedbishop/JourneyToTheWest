@@ -83,7 +83,6 @@ public class UnitsOnMap : MonoBehaviour
 
     public void ReorderUnitList()
     {
-        Debug.Log("Reording");
         List<Unit> orderUnitList = new List<Unit>();
         int highistEnergy = 0;
         int unitHighistEnergyIndex = 0;

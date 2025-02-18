@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PanelController : MonoBehaviour
@@ -48,7 +49,7 @@ public class PanelController : MonoBehaviour
 
     }
 
-    public void AddAction(UnitActions unitActions) => unitActionPanal.GetComponent<UnitActionsUi>().AddAction(unitActions);
+    public void AddAction(string actionName, Action action) => unitActionPanal.GetComponent<UnitActionsUi>().AddAction(actionName, action);
 
     public void DestroyButtons() => unitActionPanal.GetComponent <UnitActionsUi>().DestroyButtons();
 }

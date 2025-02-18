@@ -47,4 +47,10 @@ public class MoveAction : BaseAction
         isActive = true;
     }
 
+    public void SetIsActiveToFalse()
+    {
+        isActive = false;
+        
+    }
+
 }

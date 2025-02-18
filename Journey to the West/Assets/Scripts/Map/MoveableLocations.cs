@@ -76,7 +76,6 @@ public class MoveableLocations : MonoBehaviour
         //checkNaghborTiles.AddRange(checkNextNaghbors);
         //checkNextNaghbors.Clear();
 
-        Debug.Log("Next numver to count " + checkNaghborTiles.Count);
         //movableHexs.Clear();
         //checkNaghborTiles.Clear();
         int maxTilesCanMove = 0;

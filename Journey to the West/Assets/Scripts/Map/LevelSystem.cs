@@ -23,6 +23,8 @@ public class LevelSystem : MonoBehaviour
 
     [SerializeField] GameObject huntablePrefab;
 
+    [SerializeField] UnitSpawner unitSpawner;
+
 
     private void Awake()
     {
@@ -35,6 +37,7 @@ public class LevelSystem : MonoBehaviour
         GenerateHexTiles();
         SpawnTrees();
         SpawnDeer();
+        unitSpawner.SpawnUnits();
         //hexGridSystem.AddHuntableGameObjectToMap(huntablePrefab);
 
     }

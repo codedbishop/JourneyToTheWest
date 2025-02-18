@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
 
-public class Settler : Unit
+public class Settler : Human
 {
+   
+
 
     public override void GetEnergyLevel()
     {

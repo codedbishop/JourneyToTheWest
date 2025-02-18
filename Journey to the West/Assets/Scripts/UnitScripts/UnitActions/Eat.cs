@@ -7,16 +7,14 @@ public class Eat : UnitActions
 {
     public override void CanPreformAction()
     {
-        Debug.Log("Adding Eat Action");
         if (CheckForFood())
         {
-            PanelController.Instance.AddAction(this);
+            PanelController.Instance.AddAction(this.GetActionName(), PreformAction);
         }
     }
 
     public override void PreformAction()
     {
-        Debug.Log("Feeding Unit");
         FeedUnit();
     }
 
@@ -34,8 +32,8 @@ public class Eat : UnitActions
 
     public void FeedUnit()
     {
-        this.GetComponent<Unit>().RemoveFoodItemFromInventory();
-        this.GetComponent<Unit>().RestoreHunger(10);
+        this.GetComponent<Human>().RemoveFoodItemFromInventory();
+        this.GetComponent<Human>().RestoreHunger(10);
 
         PanelController.Instance.ResetInventory();
         UnitsOnMap.Instance.UpdateUnitProfileStats();

@@ -7,7 +7,7 @@ public class BuildCamp : UnitActions
     public override void CanPreformAction()
     {
        
-        PanelController.Instance.AddAction(this);
+        //PanelController.Instance.AddAction();
         
     }
 

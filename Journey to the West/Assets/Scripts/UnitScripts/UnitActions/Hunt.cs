@@ -7,13 +7,12 @@ public class Hunt : UnitActions
     {
         if (CheckForHuntable())
         {
-            PanelController.Instance.AddAction(this);
+            PanelController.Instance.AddAction(this.GetActionName(), PreformAction);
         }
     }
 
     public override void PreformAction()
     {
-        Debug.Log("Hunt");
         HuntTile();
     }
 
@@ -28,12 +27,13 @@ public class Hunt : UnitActions
 
     public void HuntTile()
     {
-        Debug.Log("Hunt");
-        this.GetComponent<Unit>().RemoveEnergy(20);
+        Unit interactingUnit = UnitActionSystem.Instance.GetSelectedUnit().GetComponent<Unit>();
+
+        interactingUnit.RemoveEnergy(20);
 
         HexTile selectedHexTile = UnitActionSystem.Instance.GetSelectedHexTile();
 
-        this.GetComponent<Unit>().AddItemToInventory(selectedHexTile.GetHuntableObject().GetComponent<DeerAI>().GetItemDrop());
+        interactingUnit.AddItemToInventory(selectedHexTile.GetHuntableObject().GetComponent<DeerAI>().GetItemDrop());
         PanelController.Instance.GetComponent<PanelController>().ResetInventory();
 
         Destroy(selectedHexTile.GetHuntableObject());

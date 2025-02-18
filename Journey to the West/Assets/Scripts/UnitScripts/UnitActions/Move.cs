@@ -12,10 +12,9 @@ public class Move : UnitActions
 
     public override void CanPreformAction()
     {
-        Debug.Log("Moving");
         if (moveUnit())
         {
-            PanelController.Instance.AddAction(this);
+            PanelController.Instance.AddAction(this.GetActionName(), PreformAction);
         }
     }
 
@@ -24,7 +23,6 @@ public class Move : UnitActions
         //FindTilesUnitCanMoveTo();
         UnitActionSystem.Instance.SetActionStateToMove();
 
-        Debug.Log("Feeding Unit");
         //FeedUnit();
     }
 

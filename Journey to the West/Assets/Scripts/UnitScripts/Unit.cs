@@ -2,19 +2,20 @@ using JetBrains.Annotations;
 using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SocialPlatforms;
 
 public class Unit : MonoBehaviour
 {
 
     [SerializeField] string name;
+    
     [SerializeField] int energyMax;
-
     [SerializeField] public int energyAmount;
 
-    [SerializeField] int hunger;
-    [SerializeField] int maxHunger;
+    //[SerializeField] int hunger;
+    //[SerializeField] int maxHunger;
 
-    [SerializeField] public int moral;
+    //[SerializeField] public int moral;
 
     [SerializeField] HexTile hexTileOn;
 
@@ -26,6 +27,11 @@ public class Unit : MonoBehaviour
 
     [SerializeField] List<UnitActions> unitActions;
 
+    //[SerializeField] Mounts mount;
+    public void Start()
+    {
+        //SetHexTileOn();
+    }
     private void Update()
     {
         HexTile newHexTile = LevelSystem.Instance.GetHexTileFromWorldPosition(transform.position);
@@ -36,6 +42,11 @@ public class Unit : MonoBehaviour
 
             LevelSystem.Instance.SetUnitOnTile(this, oldHexTile, hexTileOn);
         }
+    }
+
+    public void SetHexTileOn(GridPosition gridPosition)
+    {
+        hexTileOn = LevelSystem.Instance.GetHexTile(gridPosition);// GetHexTileFromWorldPosition(transform.position);
     }
 
 
@@ -96,16 +107,16 @@ public class Unit : MonoBehaviour
         return energyNeededToMove;
     }
 
-    public int GetHunger()
-    {
-        return hunger;
-    }
+    //public int GetHunger()
+    //{
+    //    return hunger;
+    //}
 
-    public void RestoreHunger(int hungerToRestore)
-    {
-        hunger += hungerToRestore;
-        energyAmount -= 10;
-    }
+    //public void RestoreHunger(int hungerToRestore)
+    //{
+    //    hunger += hungerToRestore;
+    //    energyAmount -= 10;
+    //}
 
     public List<ItemSo> GetInventory()
     {
@@ -161,20 +172,19 @@ public class Unit : MonoBehaviour
         return false;
     }
 
-    public int GetMoral()
-    {
-        return moral;
-    }
+    //public int GetMoral()
+    //{
+    //    return moral;
+    //}
 
-    public void UpdateMoral(int moralChange)
-    {
-        moral += moralChange;
-        UnitsOnMap.Instance.UpdateUnitProfileMoral();
-    }
+    //public void UpdateMoral(int moralChange)
+    //{
+    //    moral += moralChange;
+    //    UnitsOnMap.Instance.UpdateUnitProfileMoral();
+    //}
 
     public virtual void GetEnergyLevel()
     {
-        Debug.Log("Not Checking settler energy");
     }
     //{
     //    if(moral >= 90)
@@ -201,10 +211,32 @@ public class Unit : MonoBehaviour
         PanelController.Instance.DestroyButtons();
         foreach (UnitActions actions in unitActions)
         {
-            Debug.Log("Creating Action");
             actions.CanPreformAction();
-            //PanelController.Instance.AddAction(actions);
         }
+        GetActionsFromTile();
     }
 
+    public void GetActionsFromTile()
+    {
+        if (hexTileOn == null)
+        {
+            Debug.Log("Hex Tile is null");
+        }
+            foreach (UnitActions action in hexTileOn.GetInteractableOnTileList())
+            {
+                action.CanPreformAction();
+            }
+        
+       
+    }
+
+    //public void MountUnit(Mounts mount)
+    //{
+    //    this.mount = mount;
+    //}
+
+    //public Mounts GetMount()
+    //{
+    //    return mount;
+    //}
 }

@@ -31,9 +31,9 @@ public class UnitActionsUi : MonoBehaviour
         //}
     }
 
-    public void AddAction(UnitActions unitActions)
+    public void AddAction(string actionName, Action action)
     {
-        Instantiate(buttonTemplate, this.transform).GetComponent<UnitActionButton>().SetUpButton(unitActions.GetActionName(), unitActions.PreformAction);
+        Instantiate(buttonTemplate, this.transform).GetComponent<UnitActionButton>().SetUpButton(actionName, action);
     }
 
     public void DestroyButtons()

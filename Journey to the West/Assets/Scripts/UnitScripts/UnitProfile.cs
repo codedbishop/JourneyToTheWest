@@ -23,8 +23,13 @@ public class UnitProfile : MonoBehaviour
         unitOnThisButton = unit;
         unitNameText.text = unit.GetName();
         unitEnergyText.text = unit.GetEnergyAmount().ToString();
-        unitHungerText.text = unit.GetHunger().ToString();
-        unitMoral.text = unit.GetMoral().ToString();
+
+        if (unit is Human)
+        {
+            Human human = (Human)unit;
+            unitHungerText.text = human.GetHunger().ToString();
+            unitMoral.text = human.GetMoral().ToString();
+        }
         SetHasEnergyBorder();
     }
 
@@ -55,12 +60,21 @@ public class UnitProfile : MonoBehaviour
 
     public void UpdateMoral()
     {
-        unitMoral.text = unitOnThisButton.GetMoral().ToString();
+        if (unitOnThisButton is Human)
+        {
+            Human human = (Human)unitOnThisButton;
+            unitMoral.text = human.GetMoral().ToString();
+        }
+           
     }
 
     public void UpdateHunger()
     {
-        unitHungerText.text = unitOnThisButton.GetHunger().ToString();
+        if (unitOnThisButton is Human)
+        {
+            Human human = (Human)unitOnThisButton;
+            unitHungerText.text = human.GetHunger().ToString();
+        }
     }
 
     public void SetHasEnergyBorder()
