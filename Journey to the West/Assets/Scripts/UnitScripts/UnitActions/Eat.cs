@@ -20,7 +20,7 @@ public class Eat : UnitActions
 
     public bool CheckForFood()
     {
-        foreach (ItemSo inventoryItem in this.gameObject.GetComponent<Unit>().GetInventory())
+        foreach (ItemSo inventoryItem in this.gameObject.GetComponent<UnitInventory>().GetInventory())
         {
             if (inventoryItem is FoodSo)
             {
@@ -32,7 +32,7 @@ public class Eat : UnitActions
 
     public void FeedUnit()
     {
-        this.GetComponent<Human>().RemoveFoodItemFromInventory();
+        this.GetComponent<UnitInventory>().RemoveFoodItemFromInventory();
         this.GetComponent<Human>().RestoreHunger(10);
 
         PanelController.Instance.ResetInventory();

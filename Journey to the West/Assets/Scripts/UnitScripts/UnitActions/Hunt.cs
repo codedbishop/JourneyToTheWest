@@ -33,12 +33,11 @@ public class Hunt : UnitActions
 
         HexTile selectedHexTile = UnitActionSystem.Instance.GetSelectedHexTile();
 
-        interactingUnit.AddItemToInventory(selectedHexTile.GetHuntableObject().GetComponent<DeerAI>().GetItemDrop());
+        interactingUnit.GetComponent<UnitInventory>().AddItemToInventory(selectedHexTile.GetHuntableObject().GetComponent<DeerAI>().GetItemDrop());
         PanelController.Instance.GetComponent<PanelController>().ResetInventory();
 
         Destroy(selectedHexTile.GetHuntableObject());
         selectedHexTile.RemoveHuntableObject();
         PanelController.Instance.ResetUnitActions();
-
     }
 }

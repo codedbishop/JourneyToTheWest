@@ -26,13 +26,13 @@ public class PanelController : MonoBehaviour
         unitOnTilePanel.SetActive(false);
         unitActionPanal.GetComponent<UnitActionsUi>().SetUpButtons();
         unitInventoryPanal.SetActive(true);
-        unitInventoryPanal.GetComponent<InventoryUi>().SetInventorySlots(UnitActionSystem.Instance.GetSelectedUnit().GetComponent<Unit>().GetInventory());
+        unitInventoryPanal.GetComponent<InventoryUi>().SetInventorySlots(UnitActionSystem.Instance.GetSelectedUnit().GetComponent<UnitInventory>().GetInventory());
     }
 
     public void ResetInventory()
     {
         unitInventoryPanal.GetComponent<InventoryUi>().ResetInventorySlots();
-        unitInventoryPanal.GetComponent<InventoryUi>().SetInventorySlots(UnitActionSystem.Instance.GetSelectedUnit().GetComponent<Unit>().GetInventory());
+        unitInventoryPanal.GetComponent<InventoryUi>().SetInventorySlots(UnitActionSystem.Instance.GetSelectedUnit().GetComponent<UnitInventory>().GetInventory());
     }
 
     public void ResetUnitActions()

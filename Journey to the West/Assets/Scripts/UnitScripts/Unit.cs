@@ -118,59 +118,59 @@ public class Unit : MonoBehaviour
     //    energyAmount -= 10;
     //}
 
-    public List<ItemSo> GetInventory()
-    {
-        return inventory;
-    }
+    //public List<ItemSo> GetInventory()
+    //{
+    //    return inventory;
+    //}
 
-    public void AddItemToInventory(ItemSo itemToAdd)
-    {
-        if(inventory.Count < 7)
-        {
-            inventory.Add(itemToAdd);
+    //public void AddItemToInventory(ItemSo itemToAdd)
+    //{
+    //    if(inventory.Count < 7)
+    //    {
+    //        inventory.Add(itemToAdd);
 
-        }
-        else
-        {
+    //    }
+    //    else
+    //    {
 
-        }
-    }
+    //    }
+    //}
 
-    public void RemoveFoodItemFromInventory()
-    {
-        for (int i = inventory.Count - 1; i >=0; i--)
-        {
-            if (inventory[i] is FoodSo)
-            {
-                inventory.RemoveAt(i);
-                return;
-            }
-        }
-    }
+    //public void RemoveFoodItemFromInventory()
+    //{
+    //    for (int i = inventory.Count - 1; i >=0; i--)
+    //    {
+    //        if (inventory[i] is FoodSo)
+    //        {
+    //            inventory.RemoveAt(i);
+    //            return;
+    //        }
+    //    }
+    //}
 
-    public bool CheckForFood()
-    {
-        foreach (ItemSo inventoryItem in inventory)
-        {
-            if(inventoryItem is FoodSo)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
+    //public bool CheckForFood()
+    //{
+    //    foreach (ItemSo inventoryItem in inventory)
+    //    {
+    //        if(inventoryItem is FoodSo)
+    //        {
+    //            return true;
+    //        }
+    //    }
+    //    return false;
+    //}
 
-    public bool CheckForInventory(ItemSo item)
-    {
-        foreach (ItemSo inventoryItem in inventory)
-        {
-            if(inventoryItem == item)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
+    //public bool CheckForInventory(ItemSo item)
+    //{
+    //    foreach (ItemSo inventoryItem in inventory)
+    //    {
+    //        if(inventoryItem == item)
+    //        {
+    //            return true;
+    //        }
+    //    }
+    //    return false;
+    //}
 
     //public int GetMoral()
     //{
