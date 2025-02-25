@@ -22,7 +22,16 @@ public class UnitOnTilePanel : MonoBehaviour
 
         if (units.Count == 1)
         {
-            UnitActionSystem.Instance.SetSelectedUnit(units[0]);
+            Mounts unitMount = units[0].GetComponent<Human>().GetMount();
+            if (unitMount != null)
+            {
+                UnitActionSystem.Instance.SetSelectedUnit(unitMount.GetComponent<Unit>());
+            }
+            else
+            {
+                UnitActionSystem.Instance.SetSelectedUnit(units[0]);
+
+            }
             return;
         }
         if (units.Count > 0)
@@ -46,6 +55,14 @@ public class UnitOnTilePanel : MonoBehaviour
 
     private void UnitActionSystem_OnHexTileSelected(object sender, System.EventArgs e)
     {
-        SetUpButtons(UnitActionSystem.Instance.GetSelectedHexTile().GetUnits());
+        List<Unit> humanUnit = new List<Unit>();
+        foreach(Unit unit in UnitActionSystem.Instance.GetSelectedHexTile().GetUnits())
+        {
+            if(unit is Human)
+            {
+                humanUnit.Add(unit);
+            }
+        }
+        SetUpButtons(humanUnit);
     }
 }

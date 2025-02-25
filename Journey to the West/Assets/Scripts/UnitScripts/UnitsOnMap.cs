@@ -59,9 +59,19 @@ public class UnitsOnMap : MonoBehaviour
     }
     
 
-    public void SetActiveUnit(GameObject selectedUnit)
+    public void SetActiveUnit(GameObject unit)
     {
         DeselectedAllUnitProfiles();
+        GameObject selectedUnit = unit;
+        GameObject mount = null;
+        if(unit.GetComponent<Mounts>())
+        {
+            selectedUnit = unit.GetComponent<Mounts>().GetMountaidUnit().GameObject();
+            mount = unit;
+        }
+        Debug.Log("Mount " + mount);
+
+
         for (int i = 0; i < unitsProfiles.Count; i++)
         {
             if (unitsOnMap[i].gameObject == selectedUnit)
@@ -69,6 +79,13 @@ public class UnitsOnMap : MonoBehaviour
                 unitsProfiles[i].SetUnitToActive();
                 //UnitActionSystem.Instance.SetSelectedUnit(selectedUnit.GetComponent<Unit>());
                 return;
+            }
+            if(mount != null)
+            {
+                if (unitsOnMap[i].gameObject == mount)
+                {
+                    unitsProfiles[i].SetIsMountBorder();
+                }
             }
         }
     }
@@ -159,5 +176,21 @@ public class UnitsOnMap : MonoBehaviour
         }
         unitsProfiles.Clear();
         CreateUnitProfiles();
+    }
+
+    public void UpdateUnitPanelList()
+    {
+        foreach (UnitProfile profile in unitsProfiles)
+        {
+            Destroy(profile.gameObject);
+        }
+        unitsProfiles.Clear();
+        CreateUnitProfiles();
+    }
+
+    public void AddUnitToMap(Unit unit)
+    {
+        unitsOnMap.Add(unit);
+        UpdateUnitPanelList();
     }
 }

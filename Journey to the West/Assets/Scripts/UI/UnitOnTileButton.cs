@@ -19,7 +19,16 @@ public class UnitOnTileButton : MonoBehaviour
 
     public void SelectThisUnit()
     {
-        UnitActionSystem.Instance.SetSelectedUnit(unitOnThisButton);
+        Mounts unitMount = unitOnThisButton.GetComponent<Human>().GetMount();
+        Debug.Log("Unit Mount is " + unitMount);
+        if (unitMount != null)
+        {
+            UnitActionSystem.Instance.SetSelectedUnit(unitMount.GetComponent<Unit>());
+        }
+        else
+        {
+            UnitActionSystem.Instance.SetSelectedUnit(unitOnThisButton);
+        }
     }
 
   

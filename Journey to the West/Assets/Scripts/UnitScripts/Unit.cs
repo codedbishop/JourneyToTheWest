@@ -17,7 +17,7 @@ public class Unit : MonoBehaviour
 
     //[SerializeField] public int moral;
 
-    [SerializeField] HexTile hexTileOn;
+    [SerializeField] public HexTile hexTileOn;
 
     [SerializeField] TileMovePoint tileMovePoint;
 
@@ -32,7 +32,7 @@ public class Unit : MonoBehaviour
     {
         //SetHexTileOn();
     }
-    private void Update()
+    public virtual void Update()
     {
         HexTile newHexTile = LevelSystem.Instance.GetHexTileFromWorldPosition(transform.position);
         if (newHexTile != hexTileOn)
@@ -66,7 +66,7 @@ public class Unit : MonoBehaviour
         return energyAmount;
     }
 
-    public void RemoveEnergy(int energyToRemove)
+    public virtual void RemoveEnergy(int energyToRemove)
     {
         energyAmount -= energyToRemove;
         UnitsOnMap.Instance.UpdateUnitProfileEnergy();
@@ -218,25 +218,9 @@ public class Unit : MonoBehaviour
 
     public void GetActionsFromTile()
     {
-        if (hexTileOn == null)
+        foreach (UnitActions action in hexTileOn.GetInteractableOnTileList())
         {
-            Debug.Log("Hex Tile is null");
+            action.CanPreformAction();
         }
-            foreach (UnitActions action in hexTileOn.GetInteractableOnTileList())
-            {
-                action.CanPreformAction();
-            }
-        
-       
     }
-
-    //public void MountUnit(Mounts mount)
-    //{
-    //    this.mount = mount;
-    //}
-
-    //public Mounts GetMount()
-    //{
-    //    return mount;
-    //}
 }

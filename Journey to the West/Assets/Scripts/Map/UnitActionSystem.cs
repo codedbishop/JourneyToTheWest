@@ -114,58 +114,70 @@ public class UnitActionSystem : MonoBehaviour
     }
 
 
-    private void HandelSelectedAction(Vector3 actualMoucePosition)
+    public void HandelSelectedAction(Vector3 actualMoucePosition)
     {
-        GridPosition mouseGridPosition = LevelSystem.Instance.GetGridPosition(actualMoucePosition);
-        selectedHexTile = LevelSystem.Instance.GetHexTile(mouseGridPosition);
-        if (selectedUnit != null)
+        GridPosition mouseGridPosition = LevelSystem.Instance.GetGridPosition(actualMoucePosition);//Get Grid position from mouse position
+        selectedHexTile = LevelSystem.Instance.GetHexTile(mouseGridPosition); // set hex tile that was selected
+        
+        //check that there is a selected unit 
+        if (moveableUnit != null)
         {
-            HexTile lastHexPosition = selectedUnit.GetComponent<Unit>().GetHexTile();
+            HexTile lastHexPosition = selectedUnit.GetComponent<Unit>().GetHexTile();//hex postion unit was last one
+                                                                                     
+            //moves off the last tile move point and sets as free
             if(lastHexPosition != null)
             {
                 TileMovePoint lastTileMovePoint = selectedUnit.GetComponent<Unit>().GetTileMovePoint();
                 lastHexPosition.MoveOffTilePosition(lastTileMovePoint);
             }
 
-            //GameObject moveableUnit;
-
-            //Debug.Log(selectedUnit.GetComponent<Unit>().GetMount() + " mount");
-
-            //if (selectedUnit.GetComponent<Unit>().GetMount() != null)
-            //{
-            //    Debug.Log("Mount found");
-            //    moveableUnit = selectedUnit.GetComponent<Unit>().GetMount().GameObject();
-            //    Debug.Log(moveableUnit);
-            //}
-            //else
-            //{
-            //    //Debug.Log("Mount not found");
-            //    moveableUnit = selectedUnit;
-            //}
-
+            //gets new tile move point for unit to move to 
             TileMovePoint tileMovePoint = selectedHexTile.GetRandomAvailablePosition();
-            selectedUnit.GetComponent<Unit>().SetTileMovePoint(tileMovePoint);
 
+            //sets move point to moving unit
+            moveableUnit.GetComponent<Unit>().SetTileMovePoint(tileMovePoint);
+            
+            //gets the vector of the tile move point
             Vector2 tileMovePosition = tileMovePoint.GetPointPosition();
-            //Debug.Log(tileMovePosition);
+           
+            //gets the vector of the tile position
             Vector3 tilePosition = LevelSystem.Instance.GetHexWorldPosition(selectedHexTile);
 
+            //offsets the move point from the vector of the tile 
             Vector3 moveLocation = new Vector3((tileMovePosition.x + tilePosition.x), (tilePosition.y), (tileMovePosition.y + tilePosition.z));
 
             //check if unit can make it to tile
             if (selectedHexTile.GetCostToMoveToTile() != 0 && moveableUnit.GetComponent<Unit>().GetEnergyAmount() >= selectedHexTile.GetCostToMoveToTile())
             {
-                SetUnitDestination(moveLocation);
+                //sets the target destination for the unit 
+                //SetUnitDestination(moveLocation);//***********************
+                moveableUnit.GetComponent<Move>().SetTarget(moveLocation);
+
+                //sets the move point to not free 
                 tileMovePoint.SetPointFree(false);
-                //selectedUnit.GetComponent<MoveAction>().SetTarget(selectedHexTile);
+
+                //removes energy to move
                 moveableUnit.GetComponent<Unit>().RemoveEnergy(selectedHexTile.GetCostToMoveToTile());
+                
+                //deselcts the unit profile that moved
                 UnitsOnMap.Instance.DeselectedAllUnitProfiles();
+                //sets units to null
                 selectedUnit = null;
                 moveableUnit = null;
+
+                //removes moveable visuals
                 MoveableLocations.Instance.ClearMoveableHexTileVisuals();
+
+                //reorder the unit profile list
                 UnitsOnMap.Instance.ReorderUnitList();
+
+                //ckech if there are still turns left
                 TurnController.Instance.CheckTurnStat();
+
+                //turns unit ui to active 
                 PanelController.Instance.SetUntOnTilePanalActive();
+
+                //sets it back to be able to click on unit 
                 actionState = ActionState.none;
             }  
         }
@@ -178,15 +190,16 @@ public class UnitActionSystem : MonoBehaviour
 
     public void FindTilesUnitCanMoveTo()
     {
-        List<MoveAbleHexTileLocation> unitMoveableLocations = MoveableLocations.Instance.FindNumberOfMoves(selectedUnit.GetComponent<Unit>().GetHexTile().GetGridPosition(), selectedUnit.GetComponent<Unit>().GetEnergyAmount(), selectedUnit.GetComponent<Unit>().GetEnergyNeededToMove());
+        List<MoveAbleHexTileLocation> unitMoveableLocations = MoveableLocations.Instance.FindNumberOfMoves(moveableUnit.GetComponent<Unit>().GetHexTile().GetGridPosition(), moveableUnit.GetComponent<Unit>().GetEnergyAmount(), moveableUnit.GetComponent<Unit>().GetEnergyNeededToMove());
 
         proceduralGraphMover.target = moveableUnit.transform; // Sets the unit as the unit that will move for the AI pathfinder //Update the graph center (optional, depending on your ProceduralGraphMover configuration)
-        UpdateGridCenter(selectedUnit.transform.position);
+        UpdateGridCenter(moveableUnit.transform.position);
     }
 
     public void SetSelectedUnit(Unit unit)
     {
         selectedUnit = unit.gameObject;
+        moveableUnit = unit.gameObject;
 
         PanelController.Instance.SetUnitActionPanelActive();
         selectedUnit.GetComponent<Unit>().CreateActions();
@@ -216,11 +229,11 @@ public class UnitActionSystem : MonoBehaviour
 
     void SetUnitDestination(Vector3 targetPosition)
     {
-
+        moveableUnit.GetComponent<AIPath>().enabled = true; //turns pathfinding on 
 
         //Assuming the unit has an AIPath component for pathfinding and movement
         AIPath aiPath = moveableUnit.GetComponent<AIPath>();
-
+        
         if (aiPath != null)
         {
             // Set the target position for the AIPath component
@@ -235,6 +248,12 @@ public class UnitActionSystem : MonoBehaviour
     {
         actionState = ActionState.move;
 
+        SetMoveableUnit();
+        FindTilesUnitCanMoveTo();
+    }
+
+    public void SetMoveableUnit()
+    {
         Human human = selectedUnit.GetComponent<Human>();
 
         //checks if selected unit is a human or something else 
@@ -258,7 +277,6 @@ public class UnitActionSystem : MonoBehaviour
             moveableUnit = selectedUnit;
         }
 
-        FindTilesUnitCanMoveTo();
     }
 
     public GameObject GetSelectedUnit()

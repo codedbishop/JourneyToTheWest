@@ -119,7 +119,6 @@ public class HexTile
             if (tileMovePoints[i] == tileMovePoint)
             {
                 tileMovePoints[i].SetPointFree(true);
-                Debug.Log("Move Point Was set to free");
                 return;
             }
         }
@@ -178,6 +177,18 @@ public class HexTile
     public void AddActionToTile(UnitActions action)
     {
         actionsOnTile.Add(action);
+    }
+
+    public void RemoveActionFromTile(UnitActions removeAction)
+    {
+        foreach (UnitActions action in actionsOnTile)
+        {
+            if(removeAction == action)
+            {
+                actionsOnTile.Remove(action);
+                return;
+            }
+        }
     }
 }
 

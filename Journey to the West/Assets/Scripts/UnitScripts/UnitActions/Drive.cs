@@ -47,22 +47,22 @@ public class Drive : UnitActions
 
     public void Dismount()
     {
-        
+        //gets this current unit
         Unit mountaidUnit = this.gameObject.GetComponent<Unit>();
 
+        //gets unit riding this unit
         Unit interactingUnit = mountaidUnit.GetComponent<Mounts>().GetMountaidUnit();
-
+        //sets the mount unit rider to null
         this.gameObject.GetComponent<Mounts>().AddMountaidUnit(null);
-
+        //sets the selected unit to the base unit
         UnitActionSystem.Instance.SetSelectedUnit(interactingUnit);
-        //UnitActionSystem.Instance.SetActionStateToMove();
-
-
+        //sets the riding unit mount to null
         interactingUnit.GetComponent<Human>().MountUnit(null);
 
         //** need to add code that sets a location for unit to move to then turns on pathfinging 
+        interactingUnit.GetComponent<Move>().SetTarget(this.gameObject.transform.position);
 
-        interactingUnit.GetComponent<AIPath>().enabled = true; //turns pathfinding on 
+        //interactingUnit.GetComponent<AIPath>().enabled = true; //turns pathfinding on 
         UnitsOnMap.Instance.UpdateUnitProfileStats();
         PanelController.Instance.ResetUnitActions();
     }

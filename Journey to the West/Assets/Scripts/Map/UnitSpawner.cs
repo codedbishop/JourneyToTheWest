@@ -25,5 +25,6 @@ public class UnitSpawner : MonoBehaviour
         Transform newGameObject = Instantiate(HorsePrefab, LevelSystem.Instance.GetHexWorldPositionWithGridPosition(spawnPosition), Quaternion.identity).transform;
         newGameObject.GetComponent<Unit>().SetHexTileOn(spawnPosition);
         LevelSystem.Instance.GetHexTile(spawnPosition).AddActionToTile(newGameObject.GetComponent<UnitActions>());
+        UnitsOnMap.Instance.AddUnitToMap(newGameObject.GetComponent<Unit>());
     }
 }

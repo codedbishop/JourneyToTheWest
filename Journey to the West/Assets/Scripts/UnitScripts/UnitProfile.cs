@@ -13,6 +13,8 @@ public class UnitProfile : MonoBehaviour
     [SerializeField] Transform selectedUnit;
     [SerializeField] Transform OutOfMovesBorder;
     [SerializeField] Transform HasMovesBorder;
+    [SerializeField] Transform mountBorder;
+
 
 
     Unit unitOnThisButton;
@@ -44,6 +46,7 @@ public class UnitProfile : MonoBehaviour
         selectedUnit.gameObject.SetActive(true);
         HasMovesBorder.gameObject.SetActive(false);
         OutOfMovesBorder.gameObject.SetActive(false);
+        mountBorder.gameObject.SetActive(false);
     }
 
     public void DeselectedProfile()
@@ -84,12 +87,23 @@ public class UnitProfile : MonoBehaviour
             HasMovesBorder.gameObject.SetActive(true);
             OutOfMovesBorder.gameObject.SetActive(false);
             selectedUnit.gameObject.SetActive(false);
+            //mountBorder.gameObject.SetActive(false);
         }
         else
         {
             HasMovesBorder.gameObject.SetActive(false);
             OutOfMovesBorder.gameObject.SetActive(true);
             selectedUnit.gameObject.SetActive(false);
+            //mountBorder.gameObject.SetActive(false);
         }
+    }
+
+    public void SetIsMountBorder()
+    {
+        Debug.Log("Mount Border Set");
+        mountBorder.gameObject.SetActive(true);
+        HasMovesBorder.gameObject.SetActive(false);
+        OutOfMovesBorder.gameObject.SetActive(false);
+        selectedUnit.gameObject.SetActive(false);
     }
 }
